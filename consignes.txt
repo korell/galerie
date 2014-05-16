@@ -1,0 +1,112 @@
+Vous êtes en charge du développement d’une galerie d’images dynamique. Votre
+client vous fournit plusieurs images, et veut une page permettant de naviguer
+entre les images, et d’en afficher une dans une page séparée.
+
+Cet exercice s’améliorera à chaque séance, et nous y intègrerons des
+fonctionnalités de plus en plus poussées au fur et à mesure de notre avancée.
+Travaillons par étapes, mais gardons en tête le côté évolutif de notre projet :
+vous allez devoir penser une structure de code qui soit : facile à comprendre,
+facile à modifier, et dont les différentes parties seront faciles à remplacer.
+
+## Version 1.0
+
+Le client vous envoie ses photos par mail. C’est donc à vous, développeur, que
+revient la tâche de mettre à jour les photos du site, et il est donc possible,
+tant que le volume à traiter reste raisonnable, d’effectuer quelque traitement
+manuel, par exemple la retouche des photos, pour qu’elles soient toutes à la
+même taille sur le site.
+
+Le client n’a pas communiqué de souhait concernant d’éventuelles informations
+supplémentaires, comme une description, attachées aux photos. Nous faisons donc
+au plus simple : aucune information. Inutile donc, selon ces spécificités, de se
+compliquer la tâche avec une base de données : notre application se contentera
+de lire les images présentes dans un dossier, pour effectuer son listing et
+l’affichage pleine page.
+
+Voici la structure de notre page d’accueil :
+
+______________________________________________________
+|                                                    |
+|                                                    |
+|  Ma galerie : accueil                              |
+|                                                    |
+|  __________   __________   __________   __________ |
+|  |        |   |        |   |        |   |        | |
+|  |        |   |        |   |        |   |        | |
+|  | PHOTO1 |   | PHOTO2 |   | PHOTO3 |   |   …    | |
+|  |        |   |        |   |        |   |        | |
+|  |________|   |________|   |________|   |________| |
+|                                                    |
+|                                                    |
+|  __________   __________   __________   __________ |
+|  |        |   |        |   |        |   |        | |
+|  |        |   |        |   |        |   |        | |
+|  |        |   |        |   |        |   |        | |
+|  |        |   |        |   |        |   |        | |
+|  |________|   |________|   |________|   |________| |
+|                                                    |
+|                                                    |
+|____________________________________________________|
+
+Lorsque l’on clique sur une photo, une nouvelle page s’ouvre, présentant la
+photo.
+
+_________________________________________
+|                                       |
+|                                       |
+|  Ma galerie : affichage de PHOTO1     |
+|                                       |
+|  ____________________________________ |
+|  |                                  | |
+|  |                                  | |
+|  |                                  | |
+|  |                                  | |
+|  |                                  | |
+|  |                                  | |
+|  |              PHOTO1              | |
+|  |                                  | |
+|  |                                  | |
+|  |                                  | |
+|  |                                  | |
+|  |                                  | |
+|  |__________________________________| |
+|                                       |
+|                                       |
+|_______________________________________|
+
+Il vous faudra donc deux fichiers : le premier sera l’index, le second
+l’affichage d’une image passée en paramètre. Rien ne vous empêche d’utiliser
+d’autres pages pour organiser la structure de votre application, néanmoins.
+
+ATTENTION : **Never trust user input** ! Un nom de fichier est envoyé par
+l’utilisateur en paramètre. Méfiez-vous-en ! Souvenez-vous que les éventuelles
+erreurs visibles par le client doivent être les votres, et non celles de PHP.
+
+Bonus : dans l’idée de réutiliser ce script pour d’autres clients, il serait
+pratique de rendre dynamique le titre « Ma galerie » ; à l’avenir, nous aurons
+certainement d’autres éléments dynamiques : le nombre d’images par page, la
+taille des miniatures… Ces information de configuration étant communes à toutes
+les pages, il est pertinent de les stocker dans un fichier dédié.
+Rappelez-vous : un bon développeur est avant tout un fainéant, et cherche à
+taper le moins possible, et évite donc de se répéter.
+
+Bonus : l’affichage du nom d’une image correspond au nom du fichier auquel on a
+retiré son extension. Pouvons-nous améliorer ça ? Peut-être qu’une majuscule en
+début de nom serait apréciable ? Et si les caractères underscore (_) étaient
+remplacés par des espaces ?
+
+Bonus : pour afficher les miniatures, nous utilisons l’attribut HTML width qui
+permet d’afficher une miniature. Cela fonctionne, mais ouvrez donc le panneau
+« réseau » de votre débuggueur JS : remarquez la taille combinée de toutes ces
+images. Cela occasionne une charge réseau conséquente, et délègue au navigateur
+la tâche de redimensionner l’image, ce qui peut avoir un résultat pixellisé.
+Nous ajoutons toujours manuellement nos photos, donc pourquoi ne pas générer une
+miniature pour chaque image, avant de les envoyer toutes les deux ? Partant de
+là, comment feriez-vous pour faire le lien entre les deux fichiers ? Il existe
+de nombreuses possibilités qui se valent.
+
+Bonus : Vous n’êtes pas à l’abri d’une erreur humaine, et il peut arriver que
+vous mettiez dans votre dossier d’images des fichiers de type différent (vous
+pourriez même le faire volontairement, à l’avenir). Assurez-vous donc de
+n’afficher que des images, en procédant à une simple vérification d’extension de
+fichier ; et rappelez-vous que notre application évoluera…
