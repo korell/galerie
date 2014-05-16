@@ -1,6 +1,6 @@
 <?php
 	$titre = "Ma galerie : accueil";
-	include('header.php');
+	require_once('header.php');
 	$dir = 'images';
 	$table_images = scandir($dir);
 	$nb_images = count($table_images);
@@ -10,11 +10,11 @@
 <?php
 	foreach($table_images as $imgurl){
 		if($imgurl[0] !='.'){
-		echo '<a href="single.php?img='.$imgurl.'"><img src="'.$dir.'/'.$imgurl.'"></a>';
+		echo '<div class="image"><a href="single.php?img='.$imgurl.'"><img src="'.$dir.'/'.$imgurl.'"></a></div>';
 		}
 	}
 ?>
 </div>
 <?php
-	include('footer.php');
+	require_once('footer.php');
 ?>

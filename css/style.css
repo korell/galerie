@@ -1,0 +1,29 @@
+.gallery{
+    padding: 10px;
+}
+
+.gallery img{
+    margin: -100%;
+    vertical-align: middle;
+    width: auto;
+    height: 100%;
+}
+
+.image{
+    position: relative;
+    text-align: center;
+    border: 1px solid black;
+    margin: 10px;
+    float: left;
+    display: inline-block;
+    overflow: hidden;
+    height: 150px;
+    width: 150px;
+}
+.single{
+	position: relative;
+}
+.single img{
+	width: 500px;
+	height: auto;
+}
