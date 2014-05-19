@@ -56,7 +56,10 @@
 	function insertImage($url, $titre, $auteur, $description){
 		global $db;
 		$url = $db->quote($url);
-		$insert = $db->exec("INSERT INTO image VALUES(NULL,'image-',NOW(),'Korell','Votre description',$url)");
+		$titre = $db->quote($titre);
+		$auteur = $db->quote($auteur);
+		$description = $db->quote($description);
+		$insert = $db->exec("INSERT INTO image VALUES(NULL,$titre,NOW(),$auteur,$description, $url)");
 		return $insert;
 	}
 	function getTitre($id){
