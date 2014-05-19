@@ -1,4 +1,10 @@
 <?php
+	include('init.php');
+	if(isset($_GET['imgid'])){
+		$titre_page = getTitre($_GET['imgid']). ' << ';
+	}else{
+		$titre_page = 'Pas d\'image << ';
+	}
 	include('header.php');
 	$dir = galerieImgDirectory();
 
@@ -7,24 +13,23 @@
 		$imgid = $db->quote($_GET['imgid']);
 		$imgexist = $db->query('SELECT COUNT(id) FROM image WHERE id='.$imgid);
 		$imgexist = $imgexist->fetchColumn();
+		//on récupère les infos de chaque image	
+		$infos_image = getInfosImg($imgid);
 
 		if($imgexist==1){
-		$infos_img = $db->query("SELECT titre, nom_fichier FROM image WHERE id=".$imgid);
-		$infos_img = $infos_img->fetch();
-		
 ?>
-		<h1><?= $infos_img['titre']?></h1>
+		<h1><?= $infos_image['titre']?></h1>
 		<nav>
 			<a href="index.php">Retour à la galerie</a>
 		</nav>
 		<div class="single">
 			<figure>
 				<?php
-					$imgurl = $infos_img['nom_fichier'];
+					$imgurl = $infos_image['nom_fichier'];
 					echo '<img src='.$dir.'/'.$imgurl.'>';?>
 			
 			<figcaption>
-				<?= getInfosImg($imgid)['description'];?>
+				<?= $infos_image['description'];?>
 			</figcaption>
 			</figure>
 
@@ -47,3 +52,6 @@
 		</div>
 		<?php } ?>
 		</div>
+<?php 
+	include('footer.php');
+?>

@@ -21,28 +21,47 @@
 	}
 
 	function classPage(){
+		$url = basename($_SERVER['PHP_SELF']);
+		if($url=='single.php'){
+			$class = 'image-seule';
+		}elseif($url=='index.php'){
+			$class='home';
+		}
+		return $class;
 
 	}
 	function galerieTitre(){
-		$db = connection();
+		global $db;
 		$titre = $db->query('SELECT content FROM infos_globales WHERE meta="galerie_title"');
 		$titre = $titre->fetchColumn();
 		return $titre;
 	}
 	function galerieImgDirectory(){
-		$db = connection();
+		global $db;
 		$img_directory = $db->query('SELECT content FROM infos_globales WHERE meta="img_directory"');
 		$img_directory = $img_directory->fetchColumn();
 		return $img_directory;
 	}
 	function getListImg(){
-		$db = connection();
-		$list_img = $db->query('SELECT * FROM image');
+		global $db;
+		$list_img = $db->query('SELECT id, titre, auteur, nom_fichier, date_ajout, description FROM image');
 		return $list_img;
 	}
 	function getInfosImg($imgid){
-		$db = connection();
-		$infos = $db->query('SELECT * FROM image WHERE id='.$imgid);
+		global $db;
+		$infos = $db->query('SELECT id, titre, auteur, nom_fichier, date_ajout, description FROM image WHERE id='.$imgid);
 		$infos = $infos->fetch();
 		return $infos;
+	}
+	function insertImage($url, $titre, $auteur, $description){
+		global $db;
+		$url = $db->quote($url);
+		$insert = $db->exec("INSERT INTO image VALUES(NULL,'image-',NOW(),'Korell','Votre description',$url)");
+		return $insert;
+	}
+	function getTitre($id){
+		global $db;
+		$titre = $db->query("SELECT titre FROM image WHERE id=$id");
+		$titre = $titre->fetch()['titre'];
+		return $titre;
 	}
