@@ -30,13 +30,21 @@ if(!empty($_POST)){
 	$heure = date('YmdHis');
 	$nom_fichier = 'original'.$heure;
 	echo $nom_fichier;
-	$extension_upload = strtolower(  substr(  strrchr($_FILES['image']['name'], '.')  ,1)  );
-	$url_fichier = '../'.$dir.'/'.$nom_fichier.'.'.$extension_upload;
+	//on récupère l'extension du fichier
+	$extension = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
+	$url_fichier = '../'.$dir.'/'.$nom_fichier.'.'.$extension;
 	if(move_uploaded_file($_FILES['image']['tmp_name'], $url_fichier)){
 		echo 'Transfert réussi';
 	}
-	$url = $nom_fichier.'.'.$extension_upload;
-	$titre = $_POST['titre'];
+	$url = $nom_fichier.'.'.$extension;
+
+	//si le champ titre n'est pas rempli on lui donne comme titre le nom du fichier
+	if(!empty($_POST['titre'])){
+		$titre = $_POST['titre'];
+	}else{
+		$titre = $nom_fichier;
+	}
+
 	$auteur = $_POST['auteur'];
 	$description = $_POST['description'];
 	insertImage($url, $titre, $auteur, $description);
