@@ -1,5 +1,4 @@
 <?php
-	//Initialisation de la db
 	include('init.php');
 	$titre_page = galerieTitre();
 	include('header.php');
