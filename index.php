@@ -1,6 +1,6 @@
 <?php
 	include('init.php');
-	$titre_page = galerieTitre();
+	$titre_page = '';
 	include('header.php');
 	$dir = galerieImgDirectory();
 ?>

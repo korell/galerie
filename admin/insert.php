@@ -1,6 +1,6 @@
 <?php 
 	include('../init.php');
-	include('header.php');
+	include('header-admin.php');
 ?>
 <form method="post" enctype="multipart/form-data">
 	<p>
