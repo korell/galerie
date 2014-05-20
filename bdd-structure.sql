@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.6deb1
+-- version 4.0.4
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Mar 20 Mai 2014 à 10:05
--- Version du serveur: 5.5.35-0ubuntu0.13.10.2
--- Version de PHP: 5.5.3-1ubuntu2.1
+-- Généré le: Mar 20 Mai 2014 à 21:16
+-- Version du serveur: 5.6.12-log
+-- Version de PHP: 5.4.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -15,12 +15,6 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
-
---
--- Base de données: `galerie`
---
-
--- --------------------------------------------------------
 
 --
 -- Structure de la table `image`
@@ -34,9 +28,8 @@ CREATE TABLE IF NOT EXISTS `image` (
   `description` varchar(256) NOT NULL,
   `nom_fichier` varchar(64) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=50 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=65 ;
 
--- --------------------------------------------------------
 
 --
 -- Structure de la table `infos_globales`
@@ -49,6 +42,14 @@ CREATE TABLE IF NOT EXISTS `infos_globales` (
   PRIMARY KEY (`id`),
   KEY `id` (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Contenu de la table `infos_globales`
+--
+
+INSERT INTO `infos_globales` (`id`, `meta`, `content`) VALUES
+(1, 'galerie_title', 'Ma belle Galerie'),
+(2, 'img_directory', 'images');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
