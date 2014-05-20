@@ -1,21 +1,34 @@
 <?php
 	include('init.php');
-	if(isset($_GET['imgid'])){
-		$titre_page = getTitre($_GET['imgid']). ' << ';
+
+//////gestion du titre de la page
+	//on vérifie si le paramètre 'imgid' existe et n'est pas nul
+	if(isset($_GET['imgid']) && $_GET['imgid']!=null){
+
+		//on déclare (et on protège) l'id de l'image
+		$imgid = $db->quote($_GET['imgid']);
+
+		//on vérifie si l'image est bien dans la BDD
+		$imgexist = isImgExist($imgid);
+		if($imgexist==1){
+			$titre_page = getTitre(htmlspecialchars($_GET['imgid'])). ' << ';
+		}else{
+			$titre_page = 'Pas d\'image << ';
+		}
 	}else{
 		$titre_page = 'Pas d\'image << ';
 	}
 	include('header.php');
 	$dir = galerieImgDirectory();
 
-	if(isset($_GET['imgid']) && $_GET['imgid']!=null){
-		//on ajoute des quotes autour de la variable
-		$imgid = $db->quote($_GET['imgid']);
-		$imgexist = $db->query('SELECT COUNT(id) FROM image WHERE id='.$imgid);
-		$imgexist = $imgexist->fetchColumn();
+//////gestion de l'affichage de l'image
+	//si le paramètre 'imgid' existe et est OK
+	if(isset($imgexist)){
+
 		//on récupère les infos de chaque image	
 		$infos_image = getInfosImg($imgid);
 
+		//si l'image est présente dans la BDD
 		if($imgexist==1){
 ?>
 		<h1><?= $infos_image['titre']?></h1>
@@ -34,7 +47,9 @@
 			</figure>
 
 		<?php 
-		}else{?>
+		}
+		//si l'image N'est PAS présente dans la BDD
+		else{?>
 			<nav>
 				<a href="index.php">Retour à la galerie</a>
 			</nav>
@@ -43,7 +58,9 @@
 			</div>
 		<?php
 		}
-	}else{?>
+	}
+	//si le paramètre 'imgid' N'existe PAS ou N'est PAS OK
+	else{?>
 		<nav>
 			<a href="index.php">Retour à la galerie</a>
 		</nav>

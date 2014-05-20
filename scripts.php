@@ -1,9 +1,10 @@
 <?php
+	include('init.php');
 	include('header.php');
 
 	//insertion de l'ensemble des images du dossier 'images'
-	$fichiers = scandir('images');
-	$index = 5;
+	//$fichiers = scandir('images');
+	//$index = 5;
 	
 	/*
 	foreach($fichiers as $image){
