@@ -5,7 +5,7 @@
 	$dir = galerieImgDirectory();
 ?>
 <h1><?= galerieTitre() ?></h1>
-<div>
+<div class='wrapper'>
 <?php
 	$list_img = getListImg();//récupère l'ensemble des images de la galerie
 	$nb_images = $db->query('SELECT COUNT(id) FROM image');

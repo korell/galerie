@@ -15,13 +15,13 @@ h1{
     z-index: 10;
     position: relative;
 }
-.gallery{
+.home .wrapper{
     max-width: 850px;
     overflow: hidden;
     margin: 0 auto;
 }
 
-.gallery img{
+.home .wrapper img{
     margin: -100%;
     vertical-align: middle;
     width: auto;
@@ -48,14 +48,14 @@ h1{
     line-height: 5rem;
     font-size: 2rem;
 }
-.single{
+.image-seule .image{
 	position: relative;
 }
-.single figure img{
+.image-seule .image figure img{
 	width: 500px;
 	height: auto;
 }
-.single figcaption{
+.image-seule .image figcaption{
     font-size: 2rem;
     margin: 2rem;
 }

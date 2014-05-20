@@ -35,7 +35,7 @@
 		<nav>
 			<a href="index.php">Retour à la galerie</a>
 		</nav>
-		<div class="single">
+		<div class="image">
 			<figure>
 				<?php
 					$imgurl = $infos_image['nom_fichier'];
