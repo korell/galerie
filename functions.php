@@ -50,9 +50,8 @@
 		return $img_directory;
 	}
 	function nbImagesParPages(){
-		global $db;
-		$nb_img_par_page = $db->query('SELECT content FROM infos_globales WHERE meta="nb_img_par_page"');
-		$nb_img_par_page = $nb_img_par_page->fetchColumn();
+		global $config;
+		$nb_img_par_page = $config['nb_images_page'];
 		return $nb_img_par_page;
 	}
 	function getListImg($page_id, $img_par_page){

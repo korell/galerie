@@ -11,7 +11,7 @@
 	//$list_img = getListImg();//récupère l'ensemble des images de la galerie
 
 	//gestion de la pagination
-	if(isset($_GET['pageid']) && $_GET['pageid']!=null){
+	if(isset($_GET['pageid']) && $_GET['pageid']!=null && $_GET['pageid']>0){
 		$page_id = htmlspecialchars((int)$_GET['pageid']);
 	}
 	else{
@@ -45,14 +45,37 @@
 			}?>
 		<?php 
 		$nav = '<li><ul>';
-		for ($i=1; $i <= $nb_pages; $i++) {
-			if($i==$page_id){
-			$nav .= '<li class="selected"><a href="index.php?pageid='.$i.'">'.$i.'</a></li>';
+		if($nb_pages<=7){
+			$i=1;
+			$max = $nb_pages;
+		}
+		else{
+			if($page_id>4){
+				$i=$page_id-3;
+				
+				if($page_id>$nb_pages-3){
+					$max = $nb_pages;
+					$i = $nb_pages-6;
+
+				}
+				else{
+					$max = $page_id+3;
+				}
 			}
 			else{
-			$nav .= '<li><a href="index.php?pageid='.$i.'">'.$i.'</a></li>';
+				$i=1;
+				$max=7;
 			}
 		}
+			for ($i; $i <= $max; $i++) {
+				if($i==$page_id){
+				$nav .= '<li class="selected"><a href="index.php?pageid='.$i.'">'.$i.'</a></li>';
+				}
+				else{
+				$nav .= '<li><a href="index.php?pageid='.$i.'">'.$i.'</a></li>';
+				}
+			}
+		
 		$nav .= '</ul></li>';
 		echo $nav;
 		?>
