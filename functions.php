@@ -49,10 +49,25 @@
 		$img_directory = $img_directory->fetchColumn();
 		return $img_directory;
 	}
-	function getListImg(){
+	function nbImagesParPages(){
 		global $db;
-		$list_img = $db->query('SELECT id, titre, auteur, nom_fichier, date_ajout, description FROM image');
+		$nb_img_par_page = $db->query('SELECT content FROM infos_globales WHERE meta="nb_img_par_page"');
+		$nb_img_par_page = $nb_img_par_page->fetchColumn();
+		return $nb_img_par_page;
+	}
+	function getListImg($page_id, $img_par_page){
+		global $db;
+		if($page_id>1){
+			$page_id = ($page_id-1)*$img_par_page;
+		}
+		$list_img = $db->query("SELECT id, titre, auteur, nom_fichier, date_ajout, description FROM image LIMIT $page_id, $img_par_page");
 		return $list_img;
+	}
+	function getNbPages($img_par_page, $nb_images){
+		global $db;
+		$nb_pages = $nb_images/$img_par_page;
+		$nb_pages = ceil($nb_pages);
+		return $nb_pages;
 	}
 	function getInfosImg($imgid){
 		global $db;

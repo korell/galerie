@@ -20,14 +20,51 @@ h1{
     overflow: hidden;
     margin: 0 auto;
 }
-
+.home .galerie{
+    min-height: 400px;
+    overflow: hidden;
+}
 .home .wrapper img{
     margin: -100%;
     vertical-align: middle;
     width: auto;
     height: 150px;
 }
-.image a{
+.home nav{
+    clear: both;
+    border-top: solid grey 1px;
+    padding-top: 8px;
+}
+.home nav li a{
+    display: block;
+    padding: 0 10px;
+}
+.home nav li{
+    display: inline-block;
+    margin: 0 2px;
+}
+.home nav li.last{
+    float: right;
+    height: 1em;
+    width: 200px;
+}
+.home nav li.first{
+    float: left;
+    height: 1em;
+    width: 200px;
+}
+.home nav > ul > li > a:hover{
+    display: block;
+    background-color: red;
+    color: white;
+}
+.home nav ul ul{
+}
+.home nav ul ul li.selected, .home nav ul ul li:hover{
+    background-color: red;
+    color: white;
+}
+.home .image a{
     font-size: 0;
     vertical-align: top;
     line-height: 150px;
@@ -41,13 +78,6 @@ h1{
     height: 150px;
     width: 150px;
 }
-.subfooter{
-    width: 100%;
-}
-.subfooter span{
-    line-height: 5rem;
-    font-size: 2rem;
-}
 .image-seule .image{
 	position: relative;
 }
@@ -59,23 +89,34 @@ h1{
     font-size: 2rem;
     margin: 2rem;
 }
-nav{
+.image-seule nav{
     height: 3rem;
     background-color: grey;
     margin: 1rem 0;
 }
-nav a{
+.image-seule nav a, .home nav a{
     font-size: 2rem;
     line-height: 3rem;
     text-decoration: none;
     color: inherit;
 }
-nav a:hover{
-
+.image-seule nav a:hover{
+    text-decoration: underline;
 }
 footer{
-    height: 4rem;
+    height: 3rem;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    color: white;
     background-color: grey;
+}
+.subfooter{
+    width: 100%;
+}
+.subfooter span{
+    line-height: 3rem;
+    font-size: 1.3rem;
 }
 .erreur{
     color: red;

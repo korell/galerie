@@ -1,6 +1,13 @@
 <?php
 	include('init.php');
-
+//////gestion de la pagination
+	//on vérifie l'existence de pageid
+	if(isset($_GET['pageid']) && $_GET['pageid']!=null){
+		$page_id = htmlspecialchars($_GET['pageid']);
+	}
+	else{
+		$page_id = 1;
+	}
 //////gestion du titre de la page
 	//on vérifie si le paramètre 'imgid' existe et n'est pas nul
 	if(isset($_GET['imgid']) && $_GET['imgid']!=null){
@@ -33,7 +40,7 @@
 ?>
 		<h1><?= $infos_image['titre']?></h1>
 		<nav>
-			<a href="index.php">Retour à la galerie</a>
+			<a href="index.php?pageid=<?= $page_id?>">Retour à la galerie</a>
 		</nav>
 		<div class="image">
 			<figure>
@@ -51,7 +58,7 @@
 		//si l'image N'est PAS présente dans la BDD
 		else{?>
 			<nav>
-				<a href="index.php">Retour à la galerie</a>
+				<a href="index.php?pageid=<?= $page_id?>">Retour à la galerie</a>
 			</nav>
 			<div class="erreur">
 				Pas d'image...!
@@ -62,7 +69,7 @@
 	//si le paramètre 'imgid' N'existe PAS ou N'est PAS OK
 	else{?>
 		<nav>
-			<a href="index.php">Retour à la galerie</a>
+			<a href="index.php?pageid=<?= $page_id?>">Retour à la galerie</a>
 		</nav>
 		<div class="erreur">
 			Pas d'image...!
