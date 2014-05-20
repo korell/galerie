@@ -21,10 +21,17 @@
 	}
 
 	function classPage(){
+		$dossier_parent = explode('/', $_SERVER['PHP_SELF']);
+		$dossier_parent = $dossier_parent[count($dossier_parent)-2];
+
 		$url = basename($_SERVER['PHP_SELF']);
-		if($url=='single.php'){
+		if($dossier_parent=='admin'){
+			$class='admin';
+		}
+		elseif($url=='single.php'){
 			$class = 'image-seule';
-		}elseif($url=='index.php'){
+		}
+		elseif($url=='index.php'){
 			$class='home';
 		}
 		return $class;

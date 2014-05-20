@@ -1,6 +1,6 @@
 <?php
 	include('../init.php');
-	include('header.php');
+	include('header-admin.php');
 	$images = getListImg();
 	$table = '<div class="admin"><table>';
 	foreach ($images as $image){

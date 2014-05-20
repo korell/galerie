@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="<?= CLASSPAGE?>">
+<html class="<?= classPage()?>">
 <head>
     <title><?= galerieTitre()?> : accueil</title>
     <link rel="stylesheet" href="../css/reset.css"/>
