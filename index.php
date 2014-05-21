@@ -8,21 +8,24 @@
 <div class='wrapper'>
 	<div class="galerie">
 <?php
-	//$list_img = getListImg();//récupère l'ensemble des images de la galerie
+
+	$images_par_page = (int)nbImagesParPages();
+	$nb_images = $db->query('SELECT COUNT(id) FROM image');
+	$nb_images = $nb_images->fetchColumn();
+	$nb_pages = getNbPages($images_par_page, $nb_images);
 
 	//gestion de la pagination
-	if(isset($_GET['pageid']) && $_GET['pageid']!=null && $_GET['pageid']>0){
+	if(isset($_GET['pageid']) && $_GET['pageid']!=null && $_GET['pageid']>0 && $_GET['pageid'] <= $nb_pages){
 		$page_id = htmlspecialchars((int)$_GET['pageid']);
+	}
+	elseif($_GET['pageid'] > $nb_pages){
+		$page_id = $nb_pages;
 	}
 	else{
 		$page_id = 1;
 	}
-	$images_par_page = (int)nbImagesParPages();
-	$list_img = getListImg($page_id, /*$images_par_page*/2);
+	$list_img = getListImg($page_id, $images_par_page);
 	
-	$nb_images = $db->query('SELECT COUNT(id) FROM image');
-	$nb_images = $nb_images->fetchColumn();
-	$nb_pages = getNbPages(/*$images_par_page*/2, $nb_images);
 	foreach ($list_img as $ligne){
 		$imgurl = $ligne['nom_fichier'];
 		$imgid = $ligne['id'];
