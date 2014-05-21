@@ -9,7 +9,7 @@
 	<div class="galerie">
 <?php
 
-	$images_par_page = (int)nbImagesParPages();
+	$images_par_page = $img_par_page;
 	$nb_images = $db->query('SELECT COUNT(id) FROM image');
 	$nb_images = $nb_images->fetchColumn();
 	$nb_pages = getNbPages($images_par_page, $nb_images);
@@ -24,7 +24,7 @@
 	else{
 		$page_id = 1;
 	}
-	$list_img = getListImg($page_id, $images_par_page);
+	$list_img = getListImgFront($page_id);
 	
 	foreach ($list_img as $ligne){
 		$imgurl = $ligne['nom_fichier'];
