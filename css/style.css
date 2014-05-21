@@ -135,9 +135,12 @@ footer{
 table{
     border-spacing: 0;
 }
-.admin img{
+.admin img.miniature{
     height: 50px;
     margin: 0;
+}
+.admin th{
+    line-height: 3rem;
 }
 .admin tr{
     border-bottom: 1px solid black;
