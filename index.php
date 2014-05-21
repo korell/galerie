@@ -18,11 +18,11 @@
 		$page_id = 1;
 	}
 	$images_par_page = (int)nbImagesParPages();
-	$list_img = getListImg($page_id, $images_par_page);
+	$list_img = getListImg($page_id, /*$images_par_page*/2);
 	
 	$nb_images = $db->query('SELECT COUNT(id) FROM image');
 	$nb_images = $nb_images->fetchColumn();
-	$nb_pages = getNbPages($images_par_page, $nb_images);
+	$nb_pages = getNbPages(/*$images_par_page*/2, $nb_images);
 	foreach ($list_img as $ligne){
 		$imgurl = $ligne['nom_fichier'];
 		$imgid = $ligne['id'];
@@ -43,39 +43,41 @@
 		<?php }else{
 			echo '<li class="first"></li>';
 			}?>
-		<?php 
+		<?php
+		$prev = '';
+		$next = '';
 		$nav = '<li><ul>';
+				//les 4 cas de navigation et de la liste des numéros de pages
 		if($nb_pages<=7){
 			$i=1;
 			$max = $nb_pages;
 		}
-		else{
-			if($page_id>4){
-				$i=$page_id-3;
-				
-				if($page_id>$nb_pages-3){
-					$max = $nb_pages;
-					$i = $nb_pages-6;
-
-				}
-				else{
-					$max = $page_id+3;
-				}
+		elseif($page_id > 4 && $page_id < $nb_pages-3){
+			$i=$page_id-3;
+			$max = $page_id+3;
+			$next = '<li class="next"></li><li class="next"></li><li class="next"></li>';
+			$prev = '<li class="prev"></li><li class="prev"></li><li class="prev"></li>';
+		}
+		elseif($page_id > 4 && $page_id >= $nb_pages-3){
+			$i=$nb_pages-6;
+			$max=$nb_pages;
+			$prev = '<li class="prev"></li><li class="prev"></li><li class="prev"></li>';
+		}
+		elseif($page_id <= 4){
+			$i=1;
+			$max = 7;
+			$next = '<li class="next"></li><li class="next"></li><li class="next"></li>';
+		}
+		$nav .= $prev;
+		for ($i; $i <= $max; $i++) {
+			if($i==$page_id){
+			$nav .= '<li class="selected"><a href="index.php?pageid='.$i.'">'.$i.'</a></li>';
 			}
 			else{
-				$i=1;
-				$max=7;
+			$nav .= '<li><a href="index.php?pageid='.$i.'">'.$i.'</a></li>';
 			}
 		}
-			for ($i; $i <= $max; $i++) {
-				if($i==$page_id){
-				$nav .= '<li class="selected"><a href="index.php?pageid='.$i.'">'.$i.'</a></li>';
-				}
-				else{
-				$nav .= '<li><a href="index.php?pageid='.$i.'">'.$i.'</a></li>';
-				}
-			}
-		
+		$nav.= $next;
 		$nav .= '</ul></li>';
 		echo $nav;
 		?>

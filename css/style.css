@@ -64,6 +64,16 @@ h1{
     background-color: red;
     color: white;
 }
+.home nav li.prev, .home nav li.next{
+    height: 3px;
+    width: 3px;
+    background-color: black;
+    line-height: 1.5rem;
+}
+.home nav li.prev:hover, .home nav li.next:hover{
+    background-color: black;
+    color: inherit;
+}
 .home .image a{
     font-size: 0;
     vertical-align: top;
