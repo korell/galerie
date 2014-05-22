@@ -5,7 +5,6 @@
     <link rel="stylesheet" href="../css/reset.css"/>
     <link rel="stylesheet" type="text/css" href="../css/font-awesome-4.1.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../css/style.css"/>
-    <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
     <meta charset="utf-8" />
 </head>
 <body>

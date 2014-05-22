@@ -1,3 +1,7 @@
+@font-face {
+    font-family: "Lobster";
+    src: url('fonts/Lobster.ttf');
+}
 *{
     box-sizing:border-box;
     -moz-box-sizing:border-box;
