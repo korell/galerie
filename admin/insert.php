@@ -97,24 +97,24 @@ if(!empty($_POST)){
 	<div class="inputs">
 		<h1>Ajouter votre photo</h1>
 		<p>
-			<!--<label for="titre">Titre photo</label>-->
+			<label for="titre">Titre photo</label>
 			<input placeholder="Le titre de votre photo ici" value="<?=$titre?>" type="text" name="titre" id="titre" autofocus>
 		</p>
 		<p>
-			<!--<label for="description">Description</label>-->
+			<label for="description">Description</label>
 			<textarea placeholder="La description de votre photo ici" name="description" id="description"><?=$description?></textarea>
 		</p>
 		<p>
-			<!--<label for="auteur">Auteur</label>-->
+			<label for="auteur">Auteur</label>
 			<input placeholder="L'auteur de votre photo ici" value="<?=$auteur?>" type="text" name="auteur" id="auteur">
 		</p>
 		<p>
-			<!--<label for="image">Votre photo</label>-->
+			<label for="image">Votre photo (formats autorisés : '.jpg', '.png')</label>
 			<input type="hidden" name="MAX_FILE_SIZE" value="2000000">
 			<input type="file" name="image" id="image">
 		</p>
 		<p>
-			<input type="submit" name="submit" value="Ajouter">
+			<button type="submit" name="submit" value="Ajouter"><i class="fa fa-check"></i> Ajouter</button>
 		</p>
 	</div>
 	<?php 

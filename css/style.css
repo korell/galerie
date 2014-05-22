@@ -11,7 +11,7 @@ html{
     text-align: center;
 }
 h1{
-    font-family: 'Lobster', cursive;
+    font-family: 'Lobster', sans-serif;
     font-size: 7rem;
     margin-bottom: -1rem;
     z-index: 10;
@@ -134,8 +134,10 @@ h1{
     color: red;
     font-size: 2rem;
 }
-table{
+.admin table{
     border-spacing: 0;
+    font-size: 1.5rem;
+
 }
 .admin h1{
     font-size: 3rem;
@@ -150,13 +152,23 @@ table{
 .admin th{
     line-height: 3rem;
 }
+.admin th a .fa{
+    font-size: 1.5rem;
+    color: grey;
+}
 .admin tr{
     border-bottom: 1px solid grey;
 }
 .admin td{
-    font-size: 1.5rem;
     vertical-align: middle;
     padding: 5px 10px 5px 0;
+}
+.admin table .fa{
+    font-size: 2rem;
+    color: black;
+}
+.admin table .fa-times{
+    color: red;
 }
 .admin form{
     width: 400px;
@@ -170,8 +182,7 @@ table{
     overflow: hidden;
 }
 .admin form label{
-    display: block;
-    width: 150px;
+    font-size: 1.5rem;
 }
 .admin form input, .admin form textarea{
     width: 100%;
@@ -179,12 +190,18 @@ table{
     background-color: gainsboro;
     padding: 0.8rem;
 }
-.admin form input[type="submit"]{
+.admin form button[type="submit"]{
+    font-size: 2rem;
+    border: none;
     background-color: red;
+    line-height: 3rem;
     width: 200px;
     margin: 0 auto;
     color: white;
     float: right;
+}
+.admin button:hover{
+    cursor: pointer;
 }
 .admin form input[type="file"]{
     font-size: 1.2rem;
