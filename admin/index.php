@@ -2,9 +2,15 @@
 	include('../init.php');
 	include('header-admin.php');
 	$tri = 'DESC';
+	$trisql = 'DESC';
 	if(isset($_GET['dir'])){
 		if($_GET['dir']=='DESC'){
 			$tri = 'ASC';
+			$trisql = 'DESC';
+		}
+		else{
+			$tri = 'DESC';
+			$trisql = 'ASC';
 		}
 	}
 	else{
@@ -16,10 +22,14 @@
 	else{
 		$order = 'date_ajout';
 	}
-	$images = getListImg('', $order, $tri);
-	$table = '<div class="admin"><table>';
+	$images = getListImg('', $order, $trisql);
+	$table = '<div><table>';
 	$table .= '<tr>';
-	$table .= '<th></th><th>Titre <a href="?orderby=titre&amp;dir='.$tri.'"><img src="../css/img/fleches_tri.gif" alt=""></a></th><th>Description <a href="?orderby=description&amp;dir='.$tri.'"><img src="../css/img/fleches_tri.gif" alt=""></a></th><th>Auteur <a href="?orderby=auteur&amp;dir='.$tri.'"><img src="../css/img/fleches_tri.gif" alt=""></a></th><th>Date d\'ajout <a href="?orderby=date_ajout&amp;dir='.$tri.'"><img src="../css/img/fleches_tri.gif" alt=""></a></th>';
+	$table .= '<th></th>';
+	$table .= '<th>Titre <a href="?orderby=titre&amp;dir='.$tri.'"><img src="../css/img/fleches_tri.gif" alt=""></a></th>';
+	$table .= '<th>Description <a href="?orderby=description&amp;dir='.$tri.'"><img src="../css/img/fleches_tri.gif" alt=""></a></th>';
+	$table .= '<th>Auteur <a href="?orderby=auteur&amp;dir='.$tri.'"><img src="../css/img/fleches_tri.gif" alt=""></a></th>';
+	$table .= '<th>Date d\'ajout <a href="?orderby=date_ajout&amp;dir='.$tri.'"><img src="../css/img/fleches_tri.gif" alt=""></a></th>';
 	foreach ($images as $image){
 		$date = new DateTime($image['date_ajout']);
 		$date = $date->format('d/m/Y H:i:s');
@@ -31,8 +41,8 @@
 		$table .= '<td>'.$date.'</td>';
 		$table .= '</tr>';
 	}
-	$table .= '</table>';
+	$table .= '</table></div>';
 	echo $table;
 
  ?>
-<a href="insert.php">Ajouter une image</a>
+<?php include('footer-admin.php') ?>

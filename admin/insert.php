@@ -81,10 +81,16 @@ if(!empty($_POST)){
 	}
 }
 ?>
-<?php if(isset($ok)){
-
-	echo 'Formulaire envoyé';
-	}
+<?php if(isset($ok)){?>
+	<h1>Image bien envoyée</h1>
+	<img src="<?= $url_fichier?>" alt="<?= $titre?>">
+	<p><?= $titre?></p>
+	<p><?= $description?></p>
+	<p><?= $auteur?></p>
+	<p><a href="#">Modifier l'image</a><p>
+	<p><a href="insert.php">Envoyer une autre image</a><p>
+	<p><a href="../">Voir la galerie</a><p>
+	<?php }
 	else{
 ?>
 <form action='' method="post" enctype="multipart/form-data">
@@ -127,3 +133,4 @@ if(!empty($_POST)){
 	}?>
 </form>
 <?php } ?>
+<?php include('footer-admin.php') ?>
