@@ -1,52 +1,129 @@
 <?php 
+/*
+définir les valeurs par défaut (vides par défaut)
+si formulaire renvoyé
+	vérification des champs
+	si erreurs
+		on réécrit les valeurs par défaut
+	sinon
+		on insert le tout
+		on créer une variable pour empêcher l'affichage du formulaire
+si $formulaire_envoyé n'existe pas
+	on affiche le formulaire
+*/
+?>
+<?php 
 	include('../init.php');
 	include('header-admin.php');
 ?>
-<form method="post" enctype="multipart/form-data">
-	<p>
-		<label for="titre">Titre photo</label>
-		<input type="text" name="titre">
-	</p>
-	<p>
-		<label for="description">Description</label>
-		<textarea name="description"></textarea>
-	</p>
-	<p>
-		<label for="auteur">Auteur</label>
-		<input type="text" name="auteur">
-	</p>
-	<p>
-		<label for="image">Votre photo</label>
-		<input type="hidden" name="MAX_FILE_SIZE" value="2000000">
-		<input type="file" name="image" id="image">
-	</p>
-	<p>
-		<input type="submit" name="submit" value="Ajouter">
-	</p>
-</form>
 <?php
+$url = $titre = $auteur = $description = $errors_list = '';
+$error_msg_table = [];
+$errors = 0;
+$dir = galerieImgDirectory();
+$champs = [
+	'titre',
+	'auteur',
+	'description',
+	];
+$extensions_autorisees = ['jpg','png'];
 if(!empty($_POST)){
-	$dir = galerieImgDirectory();
-	$heure = date('YmdHis');
-	$nom_fichier = 'original'.$heure;
-	echo $nom_fichier;
-	//on récupère l'extension du fichier
-	$extension = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
-	$url_fichier = '../'.$dir.'/'.$nom_fichier.'.'.$extension;
-	if(move_uploaded_file($_FILES['image']['tmp_name'], $url_fichier)){
-		echo 'Transfert réussi';
+	//vérification des champs text et textarea obligatoires
+	foreach ($champs as $champ) {
+		if(isset($_POST[$champ]) && !empty($_POST[$champ])){
+			$$champ = htmlspecialchars($_POST[$champ]);
+		}else{
+			$errors++;
+		}
 	}
-	$url = $nom_fichier.'.'.$extension;
-
-	//si le champ titre n'est pas rempli on lui donne comme titre le nom du fichier
-	if(!empty($_POST['titre'])){
-		$titre = $_POST['titre'];
+	//si l'un des champs est invalide
+	if($errors > 0){
+		if($errors == 1){
+			$error_msg_table[] = '1 champ obligatoire n\'est pas correctement rempli';
+		}
+		else{
+			$error_msg_table[] = $errors.' champs obligatoires ne sont pas correctement remplis';
+		}
+	}
+	//si un fichier a été sélectionné
+	if(!empty($_FILES['image']['name'])){
+		//on récupère l'extension du fichier
+			$extension = pathinfo(htmlspecialchars($_FILES['image']['name']), PATHINFO_EXTENSION);
+			//si l'extension est dans la liste des extensions autorisées
+			if(in_array(strtolower($extension), $extensions_autorisees)){
+				//si l'image est inférieure au poids autorisé
+				if(($_FILES['image']['error']!=2 && $_FILES['image']['error']!=1)){
+					$heure = date('YmdHis');
+					$nom_fichier = 'original-'.$heure;
+					$url_fichier = '../'.$dir.'/'.$nom_fichier.'.'.$extension;
+					if(!move_uploaded_file($_FILES['image']['tmp_name'], $url_fichier)){
+						$error_msg_table[] = 'Problème de transfert de fichier';
+						$errors++;
+					}
+		$url = $nom_fichier.'.'.$extension;
+				}
+				else{
+					$error_msg_table[] = 'L\'image est trop lourde';
+					$errors++;
+				}
+			}
+			else{
+				$error_msg_table[] = 'Mauvaise extension de fichier';
+				$errors++;
+			}
 	}else{
-		$titre = $nom_fichier;
+		$error_msg_table[] = 'Aucun fichier n\'a été sélectionné';
+		$errors++;
 	}
-
-	$auteur = $_POST['auteur'];
-	$description = $_POST['description'];
-	insertImage($url, $titre, $auteur, $description);
+	if($errors==0){
+		insertImage($url, $titre, $auteur, $description);
+		$ok='';
+	}
 }
 ?>
+<?php if(isset($ok)){
+
+	echo 'Formulaire envoyé';
+	}
+	else{
+?>
+<form action='' method="post" enctype="multipart/form-data">
+	<div class="inputs">
+		<h1>Ajouter votre photo</h1>
+		<p>
+			<!--<label for="titre">Titre photo</label>-->
+			<input placeholder="Le titre de votre photo ici" value="<?=$titre?>" type="text" name="titre" id="titre" autofocus>
+		</p>
+		<p>
+			<!--<label for="description">Description</label>-->
+			<textarea placeholder="La description de votre photo ici" name="description" id="description"><?=$description?></textarea>
+		</p>
+		<p>
+			<!--<label for="auteur">Auteur</label>-->
+			<input placeholder="L'auteur de votre photo ici" value="<?=$auteur?>" type="text" name="auteur" id="auteur">
+		</p>
+		<p>
+			<!--<label for="image">Votre photo</label>-->
+			<input type="hidden" name="MAX_FILE_SIZE" value="2000000">
+			<input type="file" name="image" id="image">
+		</p>
+		<p>
+			<input type="submit" name="submit" value="Ajouter">
+		</p>
+	</div>
+	<?php 
+	if($errors > 0){
+		foreach ($error_msg_table as $error_msg) {
+			$errors_list .= '<li>'.$error_msg.'</li>';
+		}
+		if($errors == 1){
+		echo '<div class="erreurs"><p>1 petite erreur :</p><ul>';
+		}
+		else{
+			echo '<div class="erreurs"><p>'.$errors.' petites erreurs :</p><ul>';
+		}
+		echo $errors_list;
+		echo '</ul></div>';
+	}?>
+</form>
+<?php } ?>
