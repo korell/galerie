@@ -15,11 +15,13 @@
 	$nb_pages = getNbPages($images_par_page, $nb_images);
 
 	//gestion de la pagination
-	if(isset($_GET['pageid']) && $_GET['pageid']!=null && $_GET['pageid']>0 && $_GET['pageid'] <= $nb_pages){
-		$page_id = htmlspecialchars((int)$_GET['pageid']);
-	}
-	elseif($_GET['pageid'] > $nb_pages){
-		$page_id = $nb_pages;
+	if(isset($_GET['pageid']) && $_GET['pageid']!=null && $_GET['pageid'] > 0){
+		if($_GET['pageid'] <= $nb_pages){
+			$page_id = htmlspecialchars((int)$_GET['pageid']);
+		}
+		elseif($_GET['pageid'] > $nb_pages){
+			$page_id = $nb_pages;
+		}
 	}
 	else{
 		$page_id = 1;
