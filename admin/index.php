@@ -24,26 +24,29 @@
 		$order = 'date_ajout';
 	}
 	$images = getListImg('', $order, $trisql);
-	if(isset($_GET['imgid'])){
-		$imgid = htmlspecialchars($_GET['imgid']);
-		$imageseule = getInfosImg($imgid)['titre'];
-	}
-		
+	//on récupère les paramètres GET
+	$query = $_SERVER['QUERY_STRING'];
 
 	$table = '<div><table>';
-	if(isset($_GET['confirm']) && $_GET['confirm']=='ok'){
-			$args = $_SERVER['QUERY_STRING'];
-			$table .= '<tr><td class="suppr" colspan=6><span>Confirmer la suppression de l\'image "'.$imageseule.'" ?</span><div><a href="delete.php?'.$args.'" class="oui"><i class="fa fa-check"></i> Oui</a><a href="index.php" class="non"><i class="fa fa-reply"></i> Non</a></div></td></tr>';
+	if(isset($_GET['imgid'])){
+		$imgid = htmlspecialchars($_GET['imgid']);
+		$imageseule = ' "'.getInfosImg($imgid)['titre'].'"';
+	
+		if(isset($_GET['suppr']) && $_GET['suppr']=='confirm'){
+			$table .= '<tr><td class="suppr" colspan=6>';
+			$table .= '<span>Confirmer la suppression de l\'image'.$imageseule.'?</span><div><a href="delete.php'.majParamGet($query, ['suppr'=>'ok']).'" class="oui"><i class="fa fa-check"></i> Oui</a><a href="index.php" class="non"><i class="fa fa-reply"></i> Non</a></div>';
+			$table .='</td></tr>';
 		}
-		elseif(isset($_GET['suppr']) && $_GET['suppr']=='ok'){
+	}
+	if(isset($_GET['suppr']) && $_GET['suppr']=='ok'){
 			$table .= '<tr><td class="confirm" colspan=6><i class="fa fa-check"></i> Fichier supprimé !</td></tr>';
-		}
+	}
 	$table .= '<tr>';
 	$table .= '<th></th>';
-	$table .= '<th>Titre <a href="?orderby=titre&amp;dir='.$tri.'"><i class="fa fa-sort"></i></a></th>';
-	$table .= '<th>Description <a href="?orderby=description&amp;dir='.$tri.'"><i class="fa fa-sort"></i></a></th>';
-	$table .= '<th>Auteur <a href="?orderby=auteur&amp;dir='.$tri.'"><i class="fa fa-sort"></i></a></th>';
-	$table .= '<th>Date d\'ajout <a href="?orderby=date_ajout&amp;dir='.$tri.'"><i class="fa fa-sort"></i></a></th>';
+	$table .= '<th>Titre <a href="'.majParamGet($query, ['orderby'=>'titre', 'dir'=>$tri]).'"><i class="fa fa-sort"></i></a></th>';
+	$table .= '<th>Description <a href="'.majParamGet($query, ['orderby'=>'description', 'dir'=>$tri]).'"><i class="fa fa-sort"></i></a></th>';
+	$table .= '<th>Auteur <a href="'.majParamGet($query, ['orderby'=>'auteur', 'dir'=>$tri]).'"><i class="fa fa-sort"></i></a></th>';
+	$table .= '<th>Date d\'ajout <a href="'.majParamGet($query, ['orderby'=>'date_ajout', 'dir'=>$tri]).'"><i class="fa fa-sort"></i></a></th>';
 	$table .= '<th></th>';
 	foreach ($images as $image){
 		$date = new DateTime($image['date_ajout']);
@@ -56,14 +59,9 @@
 		$table .= '<td>'.$date.'</td>';
 		$imgid = $image['id'];
 		
-		if($_SERVER['QUERY_STRING']!=''){
-			$args = '?confirm=ok&amp;'.$_SERVER['QUERY_STRING'].'&amp;imgid='.$imgid;
-		}
-		else{
-			$args = '?confirm=ok&amp;imgid='.$imgid;
-		}
-		//utilisation d'une fonction trouvée sur studiovitamine.com...
-		$table .= '<td><a href="index.php'.$args.'"><i class="fa fa-times"></i></a> <a href="update.php"/><i class="fa fa-edit"></i></a></td>';
+		$params = majParamGet($query, ['suppr'=>'confirm', 'imgid'=> $imgid ]);
+
+		$table .= '<td><a href="index.php'.$params.'"><i class="fa fa-times"></i></a> <a href="update.php"/><i class="fa fa-edit"></i></a></td>';
 		$table .= '</tr>';
 	}
 	$table .= '</table></div>';

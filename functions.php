@@ -170,7 +170,7 @@
 				$query = '?'.implode('&amp;', $query);
 			}
 		}
-		return $query;
+		return htmlspecialchars_decode($query);
 	}
 /*
 	function majParamGet2($query, $params) {
