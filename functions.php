@@ -92,6 +92,10 @@
 	function deleteImage($id){
 		global $db;
 		$id = (int)$id;
+		$nom_fichier = $db->query("SELECT nom_fichier FROM image WHERE id=$id");
+		$nom_fichier = $nom_fichier->fetch()['nom_fichier'];
+		$nom_fichier = '../images/'.$nom_fichier;
+		unlink($nom_fichier);
 		$delete = $db->exec("DELETE FROM image WHERE id=$id");
 		return $delete;
 	}
@@ -110,3 +114,83 @@
 
 		return $imgexist;
 	}
+
+	//mise à jour ou ajout d'un paramètre GET en url
+	function majParamGet($query, $params){
+		$parametres_retournes =[];
+
+		if($query!=''){
+			$parametres_recus = explode('&', $query);
+
+			//on insère dans un tableau les valeurs reçues
+			foreach($parametres_recus as $parametre_recu){
+				$param_recu_valeur = substr($parametre_recu, strpos($parametre_recu, '=')+1);
+				$param_recu_cle = substr($parametre_recu, 0, strpos($parametre_recu, '='));
+				$parametres_retournes[$param_recu_cle]=$param_recu_valeur;
+			}
+			$parametres_recus_keys = array_keys($parametres_retournes);
+
+
+			foreach($params as $key => $valeur){
+
+				//si le paramètre est trouvé
+				if(in_array($key, $parametres_recus_keys)){
+					//on supprime la ligne du tableau
+					unset($parametres_retournes[$key]);
+				}
+				//on complète le tableau
+				$parametres_retournes[$key] = $valeur;
+
+				//on renvoie les donner dans un tableau
+				//déclaration d'un tableau vide
+				$query = array();
+				foreach ($parametres_retournes as $cle => $param) {
+
+					//à chaque passage on ajoute une ligne dans le tableau
+					$query[] = $cle.'='.$param;
+				}
+				//on recolle le tableau en chaîne séparée par &amp;
+				$query = '?'.implode('&amp;', $query);
+			}
+		}
+		//si il n'y a pas de paramètre dans l'URL
+		else{
+			foreach($params as $key => $valeur){
+				$parametres_retournes[$key] = $valeur;
+
+				//on renvoie les donner dans un tableau
+				//déclaration d'un tableau vide
+				$query = array();
+				foreach ($parametres_retournes as $cle => $param) {
+
+					//à chaque passage on ajoute une ligne dans le tableau
+					$query[] = $cle.'='.$param;
+				}
+				//on recolle le tableau en chaîne séparée par &amp;
+				$query = '?'.implode('&amp;', $query);
+			}
+		}
+		return $query;
+	}
+/*
+	function majParamGet2($query, $params) {
+		$params_orig = explode('&', $query);
+		$new_params = array();
+		foreach($params_orig as $v) {
+			// $v contient quelque chose comme « cle=valeur », $k contient un index numérique
+			list($k, $v) = explode('=', $v);
+			// $k contient maintenant « cle », $v contient maintenant « valeur »
+			$new_params[$k] = $v;
+		}
+		// $new_params est un tableau associatif ressemblant à $_GET
+		$new_params = array_merge($new_params, $params);
+		$new_query = '';
+		if(count($new_params)) {
+			$new_query = '?';
+			foreach($new_params as $k => $v) {
+				$new_query .= $k => urlencode($v);
+			}
+		}
+		return $new_query;
+	}
+*/
