@@ -89,6 +89,12 @@
 		$insert = $db->exec("INSERT INTO image VALUES(NULL,$titre,NOW(),$auteur,$description, $url)");
 		return $insert;
 	}
+	function deleteImage($id){
+		global $db;
+		$id = (int)$id;
+		$delete = $db->exec("DELETE FROM image WHERE id=$id");
+		return $delete;
+	}
 	function getTitre($id){
 		global $db;
 		$titre = $db->query("SELECT titre FROM image WHERE id=$id");
