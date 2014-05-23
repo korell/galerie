@@ -167,6 +167,34 @@ h1{
     vertical-align: middle;
     padding: 5px 10px 5px 0;
 }
+.admin td.suppr, .admin td.suppr .fa, .admin td.confirm, .admin td.confirm .fa{
+    color: orange;
+    text-align: center;
+    font-size: 2rem;
+    padding-bottom: 1rem;
+}
+.admin td.suppr a{
+    text-decoration: none;
+    color: inherit;
+    display: inline-block;
+    margin: 0 10px;
+    color: white;
+    font-size: 2rem;
+    line-height: 2rem;
+    width: 100px;
+    background-color: red;
+}
+.admin .suppr a .fa{
+    color: white;
+    line-height: 2rem;
+}
+.admin td.suppr .non a{
+    background-color: green;
+
+}
+.admin td.suppr .oui a{
+    background-color: green;
+}
 .admin table .fa{
     font-size: 2rem;
     color: black;
