@@ -34,7 +34,7 @@
 	
 		if(isset($_GET['suppr']) && $_GET['suppr']=='confirm'){
 			$table .= '<tr><td class="suppr" colspan=6>';
-			$table .= '<span>Confirmer la suppression de l\'image'.$imageseule.'?</span><div><a href="delete.php'.majParamGet($query, ['suppr'=>'ok']).'" class="oui"><i class="fa fa-check"></i> Oui</a><a href="index.php" class="non"><i class="fa fa-reply"></i> Non</a></div>';
+			$table .= '<span>Confirmer la suppression de l\'image'.$imageseule.'?</span><div><a href="delete.php'.majParamGet($query, ['suppr'=>'ok']).'" class="oui"><i class="fa fa-check"></i> Oui</a><a href="index.php'.majParamGet($query, ['suppr'=>'annul']).'" class="non"><i class="fa fa-reply"></i> Non</a></div>';
 			$table .='</td></tr>';
 		}
 	}
