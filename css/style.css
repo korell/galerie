@@ -292,6 +292,7 @@ h1{
     color: white;
     background-color: grey;
     overflow: hidden;
+    z-index: 100;
 }
 .admin header{
     top: 0;
@@ -320,4 +321,7 @@ h1{
 }
 .admin header nav li a:hover{
     background-color: red;
+}
+.admin .update img{
+    width:100%;
 }

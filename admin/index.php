@@ -59,9 +59,7 @@
 		$table .= '<td>'.$date.'</td>';
 		$imgid = $image['id'];
 		
-		$params = majParamGet($query, ['suppr'=>'confirm', 'imgid'=> $imgid ]);
-
-		$table .= '<td><a href="index.php'.$params.'"><i class="fa fa-times"></i></a> <a href="update.php"/><i class="fa fa-edit"></i></a></td>';
+		$table .= '<td><a href="index.php'.majParamGet($query, ['suppr'=>'confirm', 'imgid'=> $imgid ]).'"><i class="fa fa-times"></i></a> <a href="update.php'.majParamGet($query, ['imgid'=> $imgid ]).'"/><i class="fa fa-edit"></i></a></td>';
 		$table .= '</tr>';
 	}
 	$table .= '</table></div>';

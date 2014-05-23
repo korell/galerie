@@ -89,6 +89,14 @@
 		$insert = $db->exec("INSERT INTO image VALUES(NULL,$titre,NOW(),$auteur,$description, $url)");
 		return $insert;
 	}
+	function updateImage($id, $titre, $auteur, $description){
+		global $db;
+		$titre = $db->quote($titre);
+		$auteur = $db->quote($auteur);
+		$description = $db->quote($description);
+		$update = $db->exec("UPDATE image SET titre = $titre, auteur = $auteur, description = $description WHERE id = $id");
+		return $update;
+	}
 	function deleteImage($id){
 		global $db;
 		$id = (int)$id;
