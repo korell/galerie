@@ -116,7 +116,7 @@
 	}
 
 	//mise à jour ou ajout d'un paramètre GET en url
-	function majParamGet($query, $params){
+	function majParamGet($query, $params, $html_output = true){
 		$parametres_retournes =[];
 
 		if($query!=''){
@@ -150,7 +150,7 @@
 					$query[] = $cle.'='.$param;
 				}
 				//on recolle le tableau en chaîne séparée par &amp;
-				$query = '?'.implode('&amp;', $query);
+				$query = '?'.implode(($html_output ? '&amp;' : '&'), $query);
 			}
 		}
 		//si il n'y a pas de paramètre dans l'URL
@@ -167,13 +167,13 @@
 					$query[] = $cle.'='.$param;
 				}
 				//on recolle le tableau en chaîne séparée par &amp;
-				$query = '?'.implode('&amp;', $query);
+				$query = '?'.implode(($html_output ? '&amp;' : '&'), $query);
 			}
 		}
-		return htmlspecialchars_decode($query);
+		return $query;
 	}
 /*
-	function majParamGet2($query, $params) {
+	function majParamGet2($query, $params, $html_output = true) {
 		$params_orig = explode('&', $query);
 		$new_params = array();
 		foreach($params_orig as $v) {
@@ -187,9 +187,11 @@
 		$new_query = '';
 		if(count($new_params)) {
 			$new_query = '?';
+			$new_query_array = array();
 			foreach($new_params as $k => $v) {
-				$new_query .= $k => urlencode($v);
+				$new_query_array[] = $k.'='.urlencode($v);
 			}
+			$new_query .= implode(($html_output ? '&amp;' : '&'), $new_query_array);
 		}
 		return $new_query;
 	}

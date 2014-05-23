@@ -155,23 +155,37 @@ h1{
 }
 .admin th{
     line-height: 3rem;
+    text-align: left;
 }
 .admin th a .fa{
     font-size: 1.5rem;
     color: grey;
+}
+.admin th a .fa:hover{
+    color: red;
 }
 .admin tr{
     border-bottom: 1px solid grey;
 }
 .admin td{
     vertical-align: middle;
-    padding: 5px 10px 5px 0;
+    padding: 5px 10px 5px 5px;
+    width: 150px;
+    border-right: dashed grey 1px;
+}
+.admin td:nth-child(3){
+    width: 400px;
+    font-size: 1.3rem;
+}
+.admin td:last-child{
+    width: 100px;
+    border-right: none;
 }
 .admin td.suppr, .admin td.suppr .fa, .admin td.confirm, .admin td.confirm .fa{
     color: orange;
     text-align: center;
     font-size: 2rem;
-    padding-bottom: 1rem;
+    line-height: 4rem;
 }
 .admin td.suppr a{
     text-decoration: none;
@@ -180,7 +194,6 @@ h1{
     margin: 0 10px;
     color: white;
     font-size: 2rem;
-    line-height: 2rem;
     width: 100px;
     background-color: red;
 }
@@ -188,11 +201,14 @@ h1{
     color: white;
     line-height: 2rem;
 }
-.admin td.suppr .non a{
-    background-color: green;
+.admin .suppr div{
+    margin: 10px 0;
+}
+.admin td.suppr div .non{
+    background-color: red;
 
 }
-.admin td.suppr .oui a{
+.admin td.suppr div .oui{
     background-color: green;
 }
 .admin table .fa{
@@ -200,6 +216,12 @@ h1{
     color: black;
 }
 .admin table .fa-times{
+    color: red;
+}
+.admin table .fa-times:hover{
+    color: black;
+}
+.admin table .fa-edit:hover{
     color: red;
 }
 .admin form{

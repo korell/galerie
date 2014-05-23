@@ -30,7 +30,7 @@
 	$table = '<div><table>';
 	if(isset($_GET['imgid'])){
 		$imgid = htmlspecialchars($_GET['imgid']);
-		$imageseule = ' "'.getInfosImg($imgid)['titre'].'"';
+		$imageseule = ' "'.getInfosImg($imgid)['titre'].'" ';
 	
 		if(isset($_GET['suppr']) && $_GET['suppr']=='confirm'){
 			$table .= '<tr><td class="suppr" colspan=6>';

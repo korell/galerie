@@ -6,7 +6,7 @@
 		$imgid = htmlspecialchars($_GET['imgid']);
 		deleteImage($imgid);
 		$query = $_SERVER['QUERY_STRING'];
-		$params = majParamGet($query, ['suppr'=>'ok']);
+		$params = majParamGet($query, ['suppr'=>'ok'], false);
 	}
 	
 	$location = 'Location: index.php'.$params;
