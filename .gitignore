@@ -1,4 +1,7 @@
 images/*.jpg
 images/*.png
+images/*.PNG
 *~
 config.php
+admin/test.php
+infos.php
