@@ -30,7 +30,7 @@
 	
 	foreach ($list_img as $ligne){
 		//on affiche les miniatures
-		$imgurl = 'minis/mini-'.$ligne['nom_fichier'];
+		$imgurl = 'mini-'.$ligne['nom_fichier'];
 		$imgid = $ligne['id'];
 
 		$img_div = '<div class="image">';

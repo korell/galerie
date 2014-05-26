@@ -59,7 +59,7 @@
 		$date = new DateTime($image['date_ajout']);
 		$date = $date->format('d/m/Y H:i:s');
 		$table .= '<tr>';
-		$table .= '<td><img class="miniature" src="../'.galerieImgDirectory().'/minis/mini-'.$image['nom_fichier'].'" alt="image" ></td>';
+		$table .= '<td><img class="miniature" src="../'.galerieImgDirectory().'/mini-'.$image['nom_fichier'].'" alt="image" ></td>';
 		$table .= '<td>'.$image['titre'].'</td>';
 		$table .= '<td>'.$image['description'].'</td>';
 		$table .= '<td>'.$image['auteur'].'</td>';

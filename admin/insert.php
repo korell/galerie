@@ -65,7 +65,10 @@ if(!empty($_POST)){
 
 		//on génère la miniature
 		$maxsize = 150;
-		genereMiniCarree($url_fichier_big, $maxsize);
+		$carre = true; //true pour une miniature carrée
+		genereMini($url_fichier_big, $maxsize, $carre, 'mini');
+
+		genereMini($url_fichier_big, 500, false, 'moyen');
 
 				}
 				else{
