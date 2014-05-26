@@ -55,13 +55,18 @@ if(!empty($_POST)){
 				//si l'image est inférieure au poids autorisé
 				if(($_FILES['image']['error']!=2 && $_FILES['image']['error']!=1)){
 					$heure = date('YmdHis');
-					$nom_fichier = 'original-'.$heure;
-					$url_fichier = '../'.$dir.'/'.$nom_fichier.'.'.$extension;
-					if(!move_uploaded_file($_FILES['image']['tmp_name'], $url_fichier)){
+					$nom_fichier_big = 'big-'.$heure;
+					$url_fichier_big = '../'.$dir.'/'.$nom_fichier_big.'.'.$extension;
+					if(!move_uploaded_file($_FILES['image']['tmp_name'], $url_fichier_big)){
 						$error_msg_table[] = 'Problème de transfert de fichier';
 						$errors++;
 					}
-		$url = $nom_fichier.'.'.$extension;
+		$url = $heure.'.'.$extension;
+
+		//on génère la miniature
+		$maxsize = 150;
+		genereMiniCarree($url_fichier_big, $maxsize);
+
 				}
 				else{
 					$error_msg_table[] = 'L\'image est trop lourde';
@@ -84,7 +89,7 @@ if(!empty($_POST)){
 ?>
 <?php if(isset($ok)){?>
 	<h1>Image bien envoyée</h1>
-	<img src="<?= $url_fichier?>" alt="<?= $titre?>">
+	<img src="<?= $url_fichier_big?>" alt="<?= $titre?>">
 	<p><?= $titre?></p>
 	<p><?= $description?></p>
 	<p><?= $auteur?></p>

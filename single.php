@@ -45,7 +45,7 @@
 		<div class="image">
 			<figure>
 				<?php
-					$imgurl = $infos_image['nom_fichier'];
+					$imgurl = 'big-'.$infos_image['nom_fichier'];
 					echo '<img src='.$dir.'/'.$imgurl.'>';?>
 			
 			<figcaption>

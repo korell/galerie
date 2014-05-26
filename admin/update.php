@@ -13,7 +13,7 @@ if(isset($_GET['imgid'])){
 	$titre = $infosimg['titre'];
 	$auteur = $infosimg['auteur'];
 	$description = $infosimg['description'];
-	$url_fichier = '../'.$dir.'/'.$infosimg['nom_fichier'];
+	$url_fichier = '../'.$dir.'/big-'.$infosimg['nom_fichier'];
 }
 else{
 	$error_msg_table[] = 'Pas de photo à modifier';

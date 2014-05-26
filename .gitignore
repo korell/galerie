@@ -1,6 +1,9 @@
 images/*.jpg
 images/*.png
 images/*.PNG
+images/minis/*.jpg
+images/minis/*.png
+images/minis/*.PNG
 *~
 config.php
 admin/test.php

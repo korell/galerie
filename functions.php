@@ -224,3 +224,57 @@
 		return $new_query;
 	}
 */
+	function genereMiniCarree($imgsrc, $maxsize = 150){
+		$img_directory = '../'.galerieImgDirectory();
+		$img_name = str_replace($img_directory.'/big-', '', $imgsrc);
+		$img_name = substr($img_name, 0, strripos($img_name, '.'));
+		echo $img_name;
+		$imginfos = getimagesize($imgsrc);
+
+		$extension = substr($imgsrc, strripos($imgsrc, '.'));
+
+		$type_mime = $imginfos['mime'];
+    	$type = str_replace('image/', '', $type_mime);
+
+		$width_src = $imginfos[0];
+		$height_src = $imginfos[1];
+
+		$ratio = $width_src/$height_src;
+		$decalageX = $decalageY = 0;
+
+		if($height_src > $maxsize && $width_src > $maxsize){
+			if($ratio >= 1){//paysage
+				$newheight = $maxsize;
+				$newwidth = $maxsize * $ratio;
+				$decalageX = ($newwidth-$maxsize)/-2;
+			}
+			else{//portrait
+				$newwidth = $maxsize;
+				$newheight = $maxsize * $ratio;
+				$decalageY = ($newheight-$maxsize)/-2;
+			}
+		}
+		else{
+			$newwidth = $width_src;
+			$newheight = $height_src;
+		}
+		//ouverture de l'image originale
+		$function = 'imagecreatefrom'.$type;
+		$imgsrc = $function($imgsrc);
+
+		//création de l'image carrée recevant les futures données
+		$newimage = imagecreatetruecolor($maxsize, $maxsize);
+
+		//options à mettre en place plus tard
+		//gestion des transparences pour les GIF et PNG
+
+		//on redimensionne et on recadre
+		imagecopyresampled($newimage, $imgsrc, $decalageX, $decalageY, 0, 0, $newwidth, $newheight, $width_src, $height_src);
+
+		if(!file_exists($img_directory.'/minis')){
+			echo 'Le dossier n\'existe pas';
+			mkdir($img_directory.'/minis');
+		}
+		$imgdest = $img_directory.'/minis/mini-'.$img_name.$extension;
+		imagejpeg($newimage, $imgdest, 90);
+	}

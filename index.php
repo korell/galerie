@@ -29,7 +29,8 @@
 	$list_img = getListImgFront($page_id);
 	
 	foreach ($list_img as $ligne){
-		$imgurl = $ligne['nom_fichier'];
+		//on affiche les miniatures
+		$imgurl = 'minis/mini-'.$ligne['nom_fichier'];
 		$imgid = $ligne['id'];
 
 		$img_div = '<div class="image">';
