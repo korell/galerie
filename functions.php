@@ -66,7 +66,7 @@
 		//dans le cas où on limit le nombre d'images par page
 		if(!empty($page_id) && !empty($img_par_page)){
 			$page_id = ($page_id-1)*$img_par_page;
-			$limit = 'LIMIT'.(int)$page_id.','.(int)$img_par_page;
+			$limit = 'LIMIT '.(int)$page_id.','.(int)$img_par_page;
 		}
 		else{
 			$limit = '';
