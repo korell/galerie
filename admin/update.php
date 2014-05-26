@@ -61,7 +61,7 @@ if(!empty($_POST)){
 	<?php }
 	else{
 ?>
-<form method="post" class="update">
+<form method="post" class="image">
 	<div class="inputs">
 		<h1>Modifier votre photo</h1>
 		<p>

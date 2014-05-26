@@ -93,7 +93,7 @@ if(!empty($_POST)){
 	<?php }
 	else{
 ?>
-<form action='' method="post" enctype="multipart/form-data">
+<form method="post" enctype="multipart/form-data" class="image">
 	<div class="inputs">
 		<h1>Ajouter votre photo</h1>
 		<p>

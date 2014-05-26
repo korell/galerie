@@ -224,27 +224,27 @@ h1{
 .admin table .fa-edit:hover{
     color: red;
 }
-.admin form{
+.admin form.image{
     width: 400px;
     font-size: 2rem;
     margin: 50px auto 0 auto;
 }
-.admin form .inputs > p{
+.admin form.image .inputs > p{
     margin-bottom: 10px;
 }
 .admin .inputs{
     overflow: hidden;
 }
-.admin form label{
+.admin form.image label{
     font-size: 1.5rem;
 }
-.admin form input, .admin form textarea{
+.admin form.image input, .admin form textarea{
     width: 100%;
     border: none;
     background-color: gainsboro;
     padding: 0.8rem;
 }
-.admin form button[type="submit"]{
+.admin form.image button[type="submit"]{
     font-size: 2rem;
     border: none;
     background-color: red;
@@ -257,7 +257,7 @@ h1{
 .admin button:hover{
     cursor: pointer;
 }
-.admin form input[type="file"]{
+.admin form.image input[type="file"]{
     font-size: 1.2rem;
 }
 .admin .erreurs{
@@ -322,6 +322,6 @@ h1{
 .admin header nav li a:hover{
     background-color: red;
 }
-.admin .update img{
+.admin .image img{
     width:100%;
 }

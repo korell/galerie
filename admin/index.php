@@ -23,7 +23,14 @@
 	else{
 		$order = 'date_ajout';
 	}
-	$images = getListImg('', $order, $trisql);
+	if(isset($_POST['search'])){
+		$search = htmlspecialchars($_POST['search']);
+		echo '<p>Votre recherche : '.$search.'</p>';
+	}
+	else{
+		$search = '';
+	}
+	$images = getListImg('', $order, $trisql, $search);
 	//on récupère les paramètres GET
 	$query = $_SERVER['QUERY_STRING'];
 
