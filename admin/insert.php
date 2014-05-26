@@ -49,6 +49,7 @@ if(!empty($_POST)){
 	if(!empty($_FILES['image']['name'])){
 		//on récupère l'extension du fichier
 			$extension = pathinfo(htmlspecialchars($_FILES['image']['name']), PATHINFO_EXTENSION);
+			$extension = strtolower($extension);
 			//si l'extension est dans la liste des extensions autorisées
 			if(in_array(strtolower($extension), $extensions_autorisees)){
 				//si l'image est inférieure au poids autorisé
