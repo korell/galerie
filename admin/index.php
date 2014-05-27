@@ -1,7 +1,7 @@
 <?php
 	include('../init.php');
 	include('header-admin.php');
-
+	if(isset($_SESSION['admin']) && $_SESSION['admin'] == true){
 	$tri = 'DESC';
 	$trisql = 'DESC';
 	if(isset($_GET['dir'])){
@@ -71,6 +71,8 @@
 	}
 	$table .= '</table></div>';
 	echo $table;
-
-?>
+	}//fin du if de $_SESSION
+	else{
+		header('Location: login.php');
+	} ?>
 <?php include('footer-admin.php') ?>

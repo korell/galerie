@@ -287,3 +287,53 @@
 		$imgdest = $img_directory.'/'.$taille.'-'.$img_name.$extension;
 		imagejpeg($newimage, $imgdest, 90);
 	}
+	function getUserInfosByEmail($email){
+		global $db;
+		$email = $db->quote($email);
+		$user_infos = $db->query("SELECT id, email, psswd FROM users WHERE email = $email");
+		$user_infos = $user_infos->fetch();
+		return $user_infos;
+	}
+	function getUserInfosById($id){
+		global $db;
+		$id=(int)$id;
+		$user_infos = $db->query("SELECT id, email, prenom, psswd, status FROM users WHERE id = $id");
+		$user_infos = $user_infos->fetch();
+		return $user_infos;
+	}
+	function createAccount($email, $psswd, $prenom, $status = 'membre'){
+		global $db;
+		$email = $db->quote($email);
+		$psswd = $db->quote(password_hash($psswd, PASSWORD_DEFAULT));
+		$prenom = $db->quote($prenom);
+		$status = $db->quote($status);
+		$create = $db->exec("INSERT INTO users VALUES (NULL, $email, $psswd, $prenom, $status)");
+		return $create;
+	}
+	function updateAccount($id, $email, $psswd, $prenom){
+		global $db;
+		$id = (int)$id;
+		$email = $db->quote($email);
+		$prenom = $db->quote($prenom);
+
+		if($psswd == ''){
+			$update = $db->exec("UPDATE users SET email = $email, prenom = $prenom WHERE id = $id");
+		}
+		else{
+			$psswd = $db->quote(password_hash($psswd, PASSWORD_DEFAULT));
+			$update = $db->exec("UPDATE users SET email = $email, psswd = $psswd, prenom = $prenom WHERE id = $id");
+		}
+		return $update;
+	}
+	function emailExists($email){
+		global $db;
+		$email = $db->quote($email);
+		$count = $db->query("SELECT COUNT(id) FROM users WHERE email=$email");
+		$count = $count->fetchColumn();
+		if($count > 0){
+			return true;
+		}
+		else{
+			return false;
+		}  
+	}
