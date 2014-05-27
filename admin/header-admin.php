@@ -36,8 +36,10 @@ elseif(isset($_SESSION['email'])){
 			<form method="post">
 				<ul>
 					<?php
-					if(isset($_SESSION['admin']) && $_SESSION['admin'] == true){?>
+					if(isset($_SESSION['admin']) && $_SESSION['admin'] == true){
+					if(currentPage() == 'index.php'){?>
 					<li><button type="submit"><i class="fa fa-search"></i></button><input type="search" id="search" name="search" placeholder="Rechercher"></li>
+					<?php }?>
 					<li><a href="insert.php"><i class="fa fa-plus"></i> Ajouter une image</a></li>
 					<li><a href="index.php"><i class="fa fa-home"></i> Accueil de l'admin</a></li>
 					<li><a href="../"><i class="fa fa-eye"></i> Voir ma galerie</a></li>
