@@ -29,7 +29,7 @@
 			if($email!=''){
 				$hash = $user_infos['psswd'];
 				$psswd = $_POST['psswd'];
-				if(password_verify($psswd, $hash)){
+				if(password_verify($psswd, $hash)) {
 					$_SESSION['admin'] = true;
 					$_SESSION['id'] = $user_infos['id'];
 					header('Location: index.php');
