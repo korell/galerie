@@ -14,6 +14,7 @@ elseif(isset($_SESSION['email'])){
 	$email = $_SESSION['email'];
 	$user_infos = getUserInfosByEmail($email);
 	$id_user = $user_infos['id'];
+	$_SESSION['id'] = $id_user;
 	$user_infos = getUserInfosById($id_user);
 	$prenom = $user_infos['prenom'];
 }
