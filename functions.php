@@ -37,6 +37,10 @@
 		return $class;
 
 	}
+	function currentPage(){
+		$current_page = substr($_SERVER['PHP_SELF'], strripos($_SERVER['PHP_SELF'], '/')+1);
+		return $current_page;
+	}
 	function galerieTitre(){
 		global $db;
 		$titre = $db->query('SELECT content FROM infos_globales WHERE meta="galerie_title"');
