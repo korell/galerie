@@ -49,13 +49,16 @@ if(!empty($_POST)){
 	}
 }
 ?>
-<?php if(isset($ok)){?>
+<?php if(isset($ok)){
+	$query = $_SERVER['QUERY_STRING'];
+	$params = ['imgid'=>$imgid];
+	?>
 	<h1>Image bien modifiée</h1>
 	<img src="<?= $url_fichier?>" alt="<?= $titre?>">
 	<p><?= $titre?></p>
 	<p><?= $description?></p>
 	<p><?= $auteur?></p>
-	<p><a href="#">Modifier l'image</a><p>
+	<p><a href="<?=majParamGet($query, $params)?>">Modifier l'image</a><p>
 	<p><a href="insert.php">Envoyer une autre image</a><p>
 	<p><a href="../">Voir la galerie</a><p>
 	<?php }
