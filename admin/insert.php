@@ -17,13 +17,19 @@ si $formulaire_envoyé n'existe pas
 	include('header-admin.php');
 ?>
 <?php
-$url = $titre = $auteur = $description = $errors_list = '';
+if(isset($_SESSION['id'])){
+	$id_user = $_SESSION['id'];
+	$auteur = getUserInfosById($id_user)['prenom'];
+}
+else{
+	$auteur = '';
+}
+$url = $titre = $description = $errors_list = '';
 $error_msg_table = [];
 $errors = 0;
 $dir = galerieImgDirectory();
 $champs = [
 	'titre',
-	'auteur',
 	'description',
 	];
 $extensions_autorisees = ['jpg','png'];
@@ -85,7 +91,7 @@ if(!empty($_POST)){
 		$errors++;
 	}
 	if($errors==0){
-		insertImage($url, $titre, $auteur, $description);
+		insertImage($url, $titre, $auteur, $description, $id_user);
 		$ok='';
 	}
 }
@@ -112,10 +118,6 @@ if(!empty($_POST)){
 		<p>
 			<label for="description">Description</label>
 			<textarea placeholder="La description de votre photo ici" name="description" id="description"><?=$description?></textarea>
-		</p>
-		<p>
-			<label for="auteur">Auteur</label>
-			<input placeholder="L'auteur de votre photo ici" value="<?=$auteur?>" type="text" name="auteur" id="auteur">
 		</p>
 		<p>
 			<label for="image">Votre photo (formats autorisés : '.jpg', '.png')</label>

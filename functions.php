@@ -104,13 +104,14 @@
 		$infos = $infos->fetch();
 		return $infos;
 	}
-	function insertImage($url, $titre, $auteur, $description){
+	function insertImage($url, $titre, $auteur, $description, $id_user){
 		global $db;
+		$id_user = (int)$id_user;
 		$url = $db->quote($url);
 		$titre = $db->quote($titre);
 		$auteur = $db->quote($auteur);
 		$description = $db->quote($description);
-		$insert = $db->exec("INSERT INTO image VALUES(NULL,$titre,NOW(),$auteur,$description, $url)");
+		$insert = $db->exec("INSERT INTO image VALUES(NULL,$titre,NOW(),$auteur,$description, $url, $id_user)");
 		return $insert;
 	}
 	function updateImage($id, $titre, $auteur, $description){
@@ -308,7 +309,7 @@
 	function createAccount($email, $psswd, $prenom, $status = 'membre'){
 		global $db;
 		$email = $db->quote($email);
-		$psswd = $db->quote(password_hash($psswd, PASSWORD_DEFAULT));
+		$psswd = $db->quote(password_hash($psswd, PASSWORD_DEFAULT, array('cost' => 13)));
 		$prenom = $db->quote($prenom);
 		$status = $db->quote($status);
 		$create = $db->exec("INSERT INTO users VALUES (NULL, $email, $psswd, $prenom, $status)");
