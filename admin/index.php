@@ -70,7 +70,9 @@
 		$table .= '</tr>';
 	}
 	$table .= '</table></div>';
-	echo $table;
+?>
+<h1>La liste de vos photos</h1> 
+<?php	echo $table;
 	}//fin du if de $_SESSION
 	else{
 		header('Location: login.php');

@@ -122,7 +122,22 @@
 			$limit");
 		return $list_img;
 	}
+	function getIdImgUser($id_user){
+		global $db;
+		$id_user = (int)$id_user;
+		$list_img_user = $db->query("SELECT image.id 
+			FROM image 
+			JOIN users
+			ON image.id_user = users.id
+			WHERE image.id_user = $id_user
+ 			");
+		$list_img_user_table = [];
+		foreach ($list_img_user as $img_id) {
+			$list_img_user_table[] = $img_id['id'];
+		}
+		return $list_img_user_table;
 
+	}
 	function getListImgFront($page = 1) {
 		return getListImg($page);
 	}

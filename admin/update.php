@@ -54,6 +54,14 @@ if(!empty($_POST)){
 	}
 }
 ?>
+<?php
+	$list_img_id = [];
+	$list_img = getListImg();
+	foreach ($list_img as $img_id) {
+		$list_img_id[] = $img_id['id'];
+	}
+	$list_img_user = getIdImgUser($_SESSION['id']);
+?>
 <?php if(isset($ok)){
 	$query = $_SERVER['QUERY_STRING'];
 	$params = ['imgid'=>$imgid];
@@ -71,6 +79,9 @@ if(!empty($_POST)){
 ?>
 <form method="post" class="image">
 	<div class="inputs">
+<?php
+	if(in_array($imgid, $list_img_user)){
+?>		
 		<h1>Modifier votre photo</h1>
 		<p>
 			<img src="<?= $url_fichier?>" alt="<?= $titre?>">
@@ -86,6 +97,17 @@ if(!empty($_POST)){
 		<p>
 			<button type="submit" name="submit" value="Ajouter"><i class="fa fa-check"></i> Modifier</button>
 		</p>
+<?php }
+	elseif(in_array($imgid, $list_img_id)){
+		echo '<h1>Vous n\'avez pas le droit de modifier cette image (petit malin...)</h1>
+			<p>
+				<img src="'.$url_fichier.'" alt="'.$titre.'">
+			</p>';
+	}
+	else{
+		echo '<h1>Cette image n\'existe pas...</h1>';
+	}
+?>			
 	</div>
 	<?php 
 	if($errors > 0){
