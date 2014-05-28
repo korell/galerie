@@ -17,9 +17,8 @@ si $formulaire_envoyé n'existe pas
 	include('header-admin.php');
 ?>
 <?php
-if(isset($_SESSION['id'])){
-	$id_user = $_SESSION['id'];
-	$auteur = getUserInfosById($id_user)['prenom'];
+if(isset($_SESSION['prenom'])){
+	$auteur = $_SESSION['prenom'];
 }
 else{
 	$auteur = '';

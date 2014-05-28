@@ -3,7 +3,13 @@
 	include('header-admin.php');
 ?>
 <?php
-
+if(isset($_SESSION['prenom'])){
+	$auteur = $_SESSION['prenom'];
+}
+else{
+	$auteur = '';
+}
+$errors_list ='';
 $error_msg_table = [];
 $dir = galerieImgDirectory();
 
@@ -22,7 +28,6 @@ else{
 $errors = 0;
 $champs = [
 	'titre',
-	'auteur',
 	'description',
 	];
 if(!empty($_POST)){
@@ -77,10 +82,6 @@ if(!empty($_POST)){
 		<p>
 			<label for="description">Description</label>
 			<textarea placeholder="La description de votre photo ici" name="description" id="description"><?=$description?></textarea>
-		</p>
-		<p>
-			<label for="auteur">Auteur</label>
-			<input placeholder="L'auteur de votre photo ici" value="<?=$auteur?>" type="text" name="auteur" id="auteur">
 		</p>
 		<p>
 			<button type="submit" name="submit" value="Ajouter"><i class="fa fa-check"></i> Modifier</button>

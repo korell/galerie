@@ -9,6 +9,7 @@ if(isset($_SESSION['id'])){
 	$id_user = $_SESSION['id'];
 	$user_infos = getUserInfosById($id_user);
 	$prenom = $user_infos['prenom'];
+	$_SESSION['prenom'] = $prenom;
 }
 elseif(isset($_SESSION['email'])){
 	$email = $_SESSION['email'];
