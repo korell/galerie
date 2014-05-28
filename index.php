@@ -1,7 +1,7 @@
 <?php
-	include('init.php');
+	require_once('init.php');
 	$titre_page = '';
-	include('header.php');
+	require_once('header.php');
 	$dir = galerieImgDirectory();
 ?>
 <h1><?= galerieTitre() ?></h1>

@@ -1,5 +1,5 @@
 <?php
-	include('init.php');
+	require_once('init.php');
 //////gestion de la pagination
 	//on vérifie l'existence de pageid
 	if(isset($_GET['pageid']) && $_GET['pageid']!=null){

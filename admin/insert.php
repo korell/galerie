@@ -13,8 +13,8 @@ si $formulaire_envoyé n'existe pas
 */
 ?>
 <?php 
-	include('../init.php');
-	include('header-admin.php');
+	require_once('../init.php');
+	require_once('header-admin.php');
 ?>
 <?php
 if(isset($_SESSION['prenom'])){

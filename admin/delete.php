@@ -1,6 +1,6 @@
 <?php 
-	include('../init.php');
-	include('header-admin.php');
+	require_once('../init.php');
+	require_once('header-admin.php');
 	$params = '';
 	if(isset($_GET['imgid'])){
 		$imgid = htmlspecialchars($_GET['imgid']);

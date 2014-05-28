@@ -1,6 +1,6 @@
 <?php
-	include('../init.php');
-	include('header-admin.php');
+	require_once('../init.php');
+	require_once('header-admin.php');
 	if(isset($_SESSION['admin']) && $_SESSION['admin'] == true){
 	$tri = 'DESC';
 	$trisql = 'DESC';

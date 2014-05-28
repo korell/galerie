@@ -1,6 +1,6 @@
 <?php 
-	include('../init.php');
-	include('header-admin.php');
+	require_once('../init.php');
+	require_once('header-admin.php');
 
 	//$user_infos est déclaré dans le header-admin.php
 	$email = $user_infos['email'];
