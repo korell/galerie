@@ -87,6 +87,41 @@
 		
 		return $list_img;
 	}
+	function getListImgByUserId($page_id = '', $orderby = 'date_ajout', $dir = 'DESC', $search = '', $id_user){
+		global $db;
+		global $img_par_page;
+
+		//sécurisation de la variable $search
+		$search = '%'.$search.'%';
+		$search = $db->quote($search);
+
+		//sécurisation des variables $orderby et $dir
+		$champs_table = ['titre', 'auteur', 'date_ajout', 'description'];
+		(in_array($orderby, $champs_table)) ? $orderby = $orderby : $orderby='';
+		($dir == 'ASC' || $dir == 'DESC') ? $dir = $dir : $dir ='';
+		
+		//dans le cas où on limit le nombre d'images par page
+		if(!empty($page_id) && !empty($img_par_page)){
+			$page_id = ($page_id-1)*$img_par_page;
+			$limit = 'LIMIT '.(int)$page_id.','.(int)$img_par_page;
+		}
+		else{
+			$limit = '';
+		}
+		$id_user = (int)$id_user;
+		//on génère la liste d'images
+		$list_img = $db->query("SELECT image.id, image.titre, users.prenom, image.nom_fichier, image.date_ajout, image.description
+			FROM image
+			INNER JOIN users
+			ON image.id_user = users.id
+			WHERE image.id_user = $id_user
+				AND (titre LIKE $search
+				OR auteur LIKE $search
+				OR description LIKE $search)
+			ORDER BY $orderby $dir
+			$limit");
+		return $list_img;
+	}
 
 	function getListImgFront($page = 1) {
 		return getListImg($page);

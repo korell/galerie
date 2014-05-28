@@ -30,7 +30,7 @@
 	else{
 		$search = '';
 	}
-	$images = getListImg('', $order, $trisql, $search);
+	$images = getListImgByUserId('', $order, $trisql, $search, $_SESSION['id']);
 	//on récupère les paramètres GET
 	$query = $_SERVER['QUERY_STRING'];
 
@@ -62,7 +62,7 @@
 		$table .= '<td><img class="miniature" src="../'.galerieImgDirectory().'/mini-'.$image['nom_fichier'].'" alt="image" ></td>';
 		$table .= '<td>'.$image['titre'].'</td>';
 		$table .= '<td>'.$image['description'].'</td>';
-		$table .= '<td>'.$image['auteur'].'</td>';
+		$table .= '<td>'.$image['prenom'].'</td>';
 		$table .= '<td>'.$date.'</td>';
 		$imgid = $image['id'];
 		
