@@ -1,7 +1,7 @@
-<?php 
+<?php
 	require_once('../init.php');
 	require_once('header-admin.php');
-
+	if(isConnected()){
 	//$user_infos est déclaré dans le header-admin.php
 	$email = $user_infos['email'];
 	$prenom = $user_infos['prenom'];
@@ -93,3 +93,8 @@
 		echo '</ul></div>';
 	}?>
 	</form>
+	<?php
+	}//fin du if de $_SESSION
+	else{
+		header('Location: login.php');
+	} ?>

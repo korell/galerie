@@ -1,7 +1,7 @@
 <?php
 	require_once('../init.php');
 	require_once('header-admin.php');
-	if(isset($_SESSION['admin']) && $_SESSION['admin'] == true){
+	if(isConnected()){
 	$tri = 'DESC';
 	$trisql = 'DESC';
 	if(isset($_GET['dir'])){

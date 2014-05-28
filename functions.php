@@ -1,4 +1,26 @@
-<?php 
+<?php
+	function isConnected(){
+		if(isset($_SESSION['admin']) && $_SESSION['admin'] == true){
+			$connected = true;
+		}
+		else{
+			$connected = false;
+		}
+		return $connected;
+	}
+	function isAdmin(){
+		if(isset($_SESSION['admin']) && $_SESSION['admin'] == true){
+			$userid = $_SESSION['id'];
+			$userstatus = getUserInfosById($userid)['status'];
+			if($userstatus == 'admin'){
+				$admin = true;
+			}
+		}
+		else{
+			$admin = false;
+		}
+		return $admin;
+	}
 	function isImg($imgurl, $dir){
 		if(file_exists($dir.'/'.$imgurl) && stripos($imgurl, '/') == FALSE){
 			return TRUE;
@@ -342,42 +364,49 @@
 		$imgdest = $img_directory.'/'.$taille.'-'.$img_name.$extension;
 		imagejpeg($newimage, $imgdest, 90);
 	}
+	function getUsersList(){
+		global $db;
+		$users_list = $db->query("SELECT id, prenom, email, status, gravatar FROM users");
+		return $users_list;
+	}
 	function getUserInfosByEmail($email){
 		global $db;
 		$email = $db->quote($email);
-		$user_infos = $db->query("SELECT id, email, psswd FROM users WHERE email = $email");
+		$user_infos = $db->query("SELECT id, email, psswd, status FROM users WHERE email = $email");
 		$user_infos = $user_infos->fetch();
 		return $user_infos;
 	}
 	function getUserInfosById($id){
 		global $db;
 		$id=(int)$id;
-		$user_infos = $db->query("SELECT id, email, prenom, psswd, status FROM users WHERE id = $id");
+		$user_infos = $db->query("SELECT id, email, prenom, psswd, status, gravatar FROM users WHERE id = $id");
 		$user_infos = $user_infos->fetch();
 		return $user_infos;
 	}
-	function createAccount($email, $psswd, $prenom, $status = 'membre'){
+	function createAccount($email, $psswd, $prenom, $status = 'membre', $gravatar = 'defaut.jpg'){
 		global $db;
 		$email = $db->quote($email);
 		$psswd = $db->quote(password_hash($psswd, PASSWORD_DEFAULT, array('cost' => 13)));
 		$prenom = $db->quote($prenom);
 		$status = $db->quote($status);
-		$create = $db->exec("INSERT INTO users VALUES (NULL, $email, $psswd, $prenom, $status)");
+		$gravatar = '../images/gravatars/'.$gravatar;
+		$gravatar = $db->quote($gravatar);
+		$create = $db->exec("INSERT INTO users VALUES (NULL, $email, $psswd, $prenom, $status, $gravatar)");
 		return $create;
 	}
-	function updateAccount($id, $email, $psswd, $prenom){
+	function updateAccount($id, $email, $psswd, $prenom, $gravatar){
 		global $db;
 		$id = (int)$id;
 		$email = $db->quote($email);
 		$prenom = $db->quote($prenom);
-
 		if($psswd == ''){
-			$update = $db->exec("UPDATE users SET email = $email, prenom = $prenom WHERE id = $id");
+			$update = $db->exec("UPDATE users SET gravatar = $gravatar, email = $email, prenom = $prenom WHERE id = $id");
 		}
 		else{
 			$psswd = $db->quote(password_hash($psswd, PASSWORD_DEFAULT));
-			$update = $db->exec("UPDATE users SET email = $email, psswd = $psswd, prenom = $prenom WHERE id = $id");
+			$update = $db->exec("UPDATE users SET email = $email, psswd = $psswd, prenom = $prenom, gravatar = $gravatar WHERE id = $id");
 		}
+
 		return $update;
 	}
 	function emailExists($email){

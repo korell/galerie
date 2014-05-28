@@ -1,8 +1,6 @@
 <?php 
 	require_once('../init.php');
 	require_once('header-admin.php');
-
-	
 	
 	$email = $psswd = $prenom = '';
 	$errors = 0;

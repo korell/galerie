@@ -9,7 +9,9 @@ if(isset($_SESSION['id'])){
 	$id_user = $_SESSION['id'];
 	$user_infos = getUserInfosById($id_user);
 	$prenom = $user_infos['prenom'];
+	$status = $user_infos['status'];
 	$_SESSION['prenom'] = $prenom;
+	$_SESSION['status'] = $status;
 }
 elseif(isset($_SESSION['email'])){
 	$email = $_SESSION['email'];
@@ -18,6 +20,7 @@ elseif(isset($_SESSION['email'])){
 	$_SESSION['id'] = $id_user;
 	$user_infos = getUserInfosById($id_user);
 	$prenom = $user_infos['prenom'];
+	$status = $user_infos['status'];
 }
 
 
@@ -37,19 +40,24 @@ elseif(isset($_SESSION['email'])){
 			<form method="post">
 				<ul>
 					<?php
-					if(isset($_SESSION['admin']) && $_SESSION['admin'] == true){
+					if(isConnected()){
 					if(currentPage() == 'index.php'){?>
 					<li><button type="submit"><i class="fa fa-search"></i></button><input type="search" id="search" name="search" placeholder="Rechercher"></li>
 					<?php }?>
-					<li><a href="insert.php"><i class="fa fa-plus"></i> Ajouter une image</a></li>
 					<li><a href="index.php"><i class="fa fa-home"></i> Accueil de l'admin</a></li>
+					<li><a href="insert.php"><i class="fa fa-plus"></i> Ajouter une image</a></li>
+					<?php if($status == 'admin'){?>
+					<li><a href="users.php"><i class="fa fa-users"></i> Gestion des utilisateurs</a></li>
+					<?php }?>
 					<li><a href="../"><i class="fa fa-eye"></i> Voir ma galerie</a></li>
 					<li><a href="account.php">Mon compte (<?=$prenom?>)</a></li>
 					<li><a href="?s=off"><i class="fa fa-power-off"></i> Déconnexion</a></li>
 					<?php }
+
 					elseif(currentPage() == 'login.php'){?>
 						<li><a href="signin.php"><i class="fa fa-power-off"></i> Créer un compte</a></li>
 					<?php }
+					
 					else{?>
 						<li><a href="login.php"><i class="fa fa-power-off"></i> Se connecter</a></li>
 					<?php }?>

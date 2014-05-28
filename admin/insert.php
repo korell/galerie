@@ -1,20 +1,7 @@
 <?php 
-/*
-définir les valeurs par défaut (vides par défaut)
-si formulaire renvoyé
-	vérification des champs
-	si erreurs
-		on réécrit les valeurs par défaut
-	sinon
-		on insert le tout
-		on créer une variable pour empêcher l'affichage du formulaire
-si $formulaire_envoyé n'existe pas
-	on affiche le formulaire
-*/
-?>
-<?php 
 	require_once('../init.php');
 	require_once('header-admin.php');
+	if(isConnected()){
 ?>
 <?php
 if(isset($_SESSION['prenom'])){
@@ -144,3 +131,8 @@ if(!empty($_POST)){
 </form>
 <?php } ?>
 <?php include('footer-admin.php') ?>
+<?php
+}//fin du if de $_SESSION
+else{
+	header('Location: login.php');
+} ?>
