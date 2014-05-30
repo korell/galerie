@@ -9,3 +9,4 @@ config.php
 admin/test.php
 infos.php
 scripts.php
+bdd.sql
