@@ -175,7 +175,7 @@
 	}
 	function getInfosImg($imgid){
 		global $db;
-		$infos = $db->query('SELECT id, titre, auteur, nom_fichier, date_ajout, description FROM image WHERE id='.$imgid);
+		$infos = $db->query('SELECT id, titre, nom_fichier, date_ajout, description, id_user FROM image WHERE id='.$imgid);
 		$infos = $infos->fetch();
 		return $infos;
 	}
