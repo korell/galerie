@@ -30,12 +30,6 @@ h1{
     min-height: 400px;
     overflow: hidden;
 }
-.home .wrapper img{
-    margin: -100%;
-    vertical-align: middle;
-    width: auto;
-    height: 150px;
-}
 .home nav{
     clear: both;
     border-top: solid grey 1px;
@@ -80,20 +74,46 @@ h1{
     background-color: black;
     color: inherit;
 }
-.home .image a{
-    font-size: 0;
-    vertical-align: top;
-    line-height: 150px;
+.home .image{
+    overflow: hidden;
     position: relative;
-    text-align: center;
+    font-size: 0;
     border: 1px solid black;
-    margin: 10px;
+    margin: 8px;
     float: left;
     display: block;
-    overflow: hidden;
-    height: 150px;
-    width: 150px;
+    height: 152px;
+    width: 152px;
 }
+    .home .image a{
+        position: absolute;
+        top: 0;
+        left: 0;
+        font-size: 0;
+        height: 150px;
+        width: 150px;
+    }
+        .home .image img{
+        width: auto;
+        height: 150px;
+        }
+    .home .image .auteur a{
+        text-decoration: none;
+        font-size: 1.5rem;
+        line-height: 2rem;
+        background-color: rgba(0, 0, 0, 0.3);
+        color: white;
+        height: 20px;
+        top: 150px;
+        position: absolute;
+        z-index: 1000;
+    }
+    .home .image:hover .auteur a{
+        top: 130px;
+    }
+    .home .image .auteur a:hover{
+        background-color: rgba(0, 0, 0, 1);
+    }
 .image-seule .image{
 	position: relative;
 }

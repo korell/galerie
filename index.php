@@ -29,11 +29,14 @@
 	$list_img = getListImgFront($page_id);
 	
 	foreach ($list_img as $ligne){
+
 		//on affiche les miniatures
 		$imgurl = 'mini-'.$ligne['nom_fichier'];
 		$imgid = $ligne['id'];
+		$auteur = getInfosImg($imgid)['prenom'];
 
 		$img_div = '<div class="image">';
+		$img_div .= '<span class="auteur"><a href="#">'.$auteur.'</a></span>';
 		$img_div .= '<a href="single.php?imgid='.$imgid.'&pageid='.$page_id.'">';
 		$img_div .= '<img src="'.$dir.'/'.$imgurl.'" alt="'.$ligne['titre'].'"/>';
 		$img_div .= '</a></div>';
