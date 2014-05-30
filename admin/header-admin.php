@@ -43,8 +43,10 @@ elseif(isset($_SESSION['email'])){
 					if(isConnected()){
 					if(currentPage() == 'index.php'){?>
 					<li><button type="submit"><i class="fa fa-search"></i></button><input type="search" id="search" name="search" placeholder="Rechercher"></li>
-					<?php }?>
-					<li><a href="index.php"><i class="fa fa-home"></i> Accueil de l'admin</a></li>
+					<?php }
+					//on récupère les paramètres GET
+					$query = $_SERVER['QUERY_STRING'];?>
+					<li><a href="index.php<?= majParamGet($query,['index'=>'index'])?>"><i class="fa fa-home"></i> Accueil de l'admin</a></li>
 					<li><a href="insert.php"><i class="fa fa-plus"></i> Ajouter une image</a></li>
 					<?php if($status == 'admin'){?>
 					<li><a href="users.php"><i class="fa fa-users"></i> Gestion des utilisateurs</a></li>
