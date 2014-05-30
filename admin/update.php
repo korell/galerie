@@ -4,12 +4,8 @@
 	if(isConnected()){
 ?>
 <?php
-if(isset($_SESSION['prenom'])){
-	$auteur = $_SESSION['prenom'];
-}
-else{
-	$auteur = '';
-}
+
+$id_user = $_SESSION['id'];
 $errors_list ='';
 $error_msg_table = [];
 $dir = galerieImgDirectory();
@@ -18,9 +14,9 @@ if(isset($_GET['imgid'])){
 	$imgid = htmlspecialchars($_GET['imgid']);
 	$infosimg = getInfosImg($imgid);
 	$titre = $infosimg['titre'];
-	$auteur = $infosimg['auteur'];
 	$description = $infosimg['description'];
 	$url_fichier = '../'.$dir.'/big-'.$infosimg['nom_fichier'];
+	$auteur = $infosimg['prenom'];
 }
 else{
 	$error_msg_table[] = 'Pas de photo à modifier';
@@ -50,7 +46,7 @@ if(!empty($_POST)){
 		}
 	}
 	if($errors==0){
-		updateImage($imgid, $titre, $auteur, $description);
+		updateImage($imgid, $titre, $id_user, $description);
 		$ok='';
 	}
 }

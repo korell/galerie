@@ -175,26 +175,29 @@
 	}
 	function getInfosImg($imgid){
 		global $db;
-		$infos = $db->query('SELECT id, titre, nom_fichier, date_ajout, description, id_user FROM image WHERE id='.$imgid);
+		$infos = $db->query('SELECT image.id, image.titre, image.nom_fichier, image.date_ajout, image.description, users.prenom 
+			FROM image
+			INNER JOIN users
+			ON image.id_user = users.id
+			WHERE image.id='.$imgid);
 		$infos = $infos->fetch();
 		return $infos;
 	}
-	function insertImage($url, $titre, $auteur, $description, $id_user){
+	function insertImage($url, $titre, $description, $id_user){
 		global $db;
 		$id_user = (int)$id_user;
 		$url = $db->quote($url);
 		$titre = $db->quote($titre);
-		$auteur = $db->quote($auteur);
 		$description = $db->quote($description);
 		$insert = $db->exec("INSERT INTO image VALUES(NULL,$titre,NOW(),$description, $url, $id_user)");
 		return $insert;
 	}
-	function updateImage($id, $titre, $auteur, $description){
+	function updateImage($id, $titre, $id_user, $description){
 		global $db;
 		$titre = $db->quote($titre);
-		$auteur = $db->quote($auteur);
+		$id_user = (int)$id_user;
 		$description = $db->quote($description);
-		$update = $db->exec("UPDATE image SET titre = $titre, auteur = $auteur, description = $description WHERE id = $id");
+		$update = $db->exec("UPDATE image SET titre = $titre, id_user = $id_user, description = $description WHERE id = $id");
 		return $update;
 	}
 	function deleteImage($id){

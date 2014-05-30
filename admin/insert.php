@@ -4,13 +4,9 @@
 	if(isConnected()){
 ?>
 <?php
-if(isset($_SESSION['prenom'])){
-	$auteur = $_SESSION['prenom'];
-}
-else{
-	$auteur = '';
-}
+
 $id_user = $_SESSION['id'];
+$auteur = getUserInfosById($id_user)['prenom'];
 $url = $titre = $description = $errors_list = '';
 $error_msg_table = [];
 $errors = 0;
@@ -78,7 +74,7 @@ if(!empty($_POST)){
 		$errors++;
 	}
 	if($errors==0){
-		insertImage($url, $titre, $auteur, $description, $id_user);
+		insertImage($url, $titre, $description, $id_user);
 		$ok='';
 	}
 }
