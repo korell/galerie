@@ -55,7 +55,9 @@
 	$table .= '<th>Auteur <a href="'.majParamGet($query, ['orderby'=>'users.prenom', 'dir'=>$tri]).'"><i class="fa fa-sort"></i></a></th>';
 	$table .= '<th>Date d\'ajout <a href="'.majParamGet($query, ['orderby'=>'image.date_ajout', 'dir'=>$tri]).'"><i class="fa fa-sort"></i></a></th>';
 	$table .= '<th></th>';
+	$nb_img = 0;
 	foreach ($images as $image){
+		$nb_img++;
 		$date = new DateTime($image['date_ajout']);
 		$date = $date->format('d/m/Y H:i:s');
 		$table .= '<tr>';
@@ -71,8 +73,25 @@
 	}
 	$table .= '</table></div>';
 ?>
-<h1>La liste de vos photos</h1> 
+<?php 
+if($nb_img==0){
+	$h1 = '<h1>Vous n\'avez aucune image dans votre collection</h1>';
+	$button = '<div class="pas-image"><button class="ajouter-image"><a href="insert.php"><i class="fa fa-plus"></i> Ajouter une image</a></button></div>';
+	$table = '';
+}
+elseif($nb_img==1){
+	$h1 = '<h1>Votre photo</h1>';
+	$button = '';
+}
+else{
+	$h1 = '<h1>La liste de vos '.$nb_img.' photos</h1>';
+	$button = '';
+}
+?>
+ 
 <?php
+	echo $h1;
+	echo $button;
 	echo $table;
 	}//fin du if de $_SESSION
 	else{
