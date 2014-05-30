@@ -76,16 +76,17 @@
 		return $img_directory;
 	}
 	
-	function getListImg($page_id = '', $orderby = 'date_ajout', $dir = 'DESC', $search = ''){
+	function getListImg($page_id = '', $orderby = 'image.date_ajout', $dir = 'DESC', $search = ''){
 		global $db;
 		global $img_par_page;
+		$orderby = 'image.date_ajout';
 
 		//sécurisation de la variable $search
 		$search = '%'.$search.'%';
 		$search = $db->quote($search);
 
 		//sécurisation des variables $orderby et $dir
-		$champs_table = ['titre', 'auteur', 'date_ajout', 'description'];
+		$champs_table = ['image.titre', 'users.prenom', 'image.date_ajout', 'image.description'];
 		(in_array($orderby, $champs_table)) ? $orderby = $orderby : $orderby='';
 		($dir == 'ASC' || $dir == 'DESC') ? $dir = $dir : $dir ='';
 		
@@ -99,17 +100,19 @@
 		}
 
 		//on génère la liste d'images
-		$list_img = $db->query("SELECT id, titre, auteur, nom_fichier, date_ajout, description
+		$list_img = $db->query("SELECT image.id, image.titre, users.prenom, image.nom_fichier, image.date_ajout, image.description
 			FROM image
-			WHERE titre LIKE $search
-				OR auteur LIKE $search
-				OR description LIKE $search
+			INNER JOIN users
+			ON image.id_user = users.id
+			WHERE image.titre LIKE $search
+				OR users.prenom LIKE $search
+				OR image.description LIKE $search
 			ORDER BY $orderby $dir
 			$limit");
 		
 		return $list_img;
 	}
-	function getListImgByUserId($page_id = '', $orderby = 'date_ajout', $dir = 'DESC', $search = '', $id_user){
+	function getListImgByUserId($page_id = '', $orderby = 'image.date_ajout', $dir = 'DESC', $search = '', $id_user){
 		global $db;
 		global $img_par_page;
 
@@ -118,7 +121,7 @@
 		$search = $db->quote($search);
 
 		//sécurisation des variables $orderby et $dir
-		$champs_table = ['titre', 'auteur', 'date_ajout', 'description'];
+		$champs_table = ['image.titre', 'users.prenom', 'image.date_ajout', 'image.description'];
 		(in_array($orderby, $champs_table)) ? $orderby = $orderby : $orderby='';
 		($dir == 'ASC' || $dir == 'DESC') ? $dir = $dir : $dir ='';
 		
@@ -137,9 +140,9 @@
 			INNER JOIN users
 			ON image.id_user = users.id
 			WHERE image.id_user = $id_user
-				AND (titre LIKE $search
-				OR auteur LIKE $search
-				OR description LIKE $search)
+				AND (image.titre LIKE $search
+				OR users.prenom LIKE $search
+				OR image.description LIKE $search)
 			ORDER BY $orderby $dir
 			$limit");
 		return $list_img;
@@ -183,7 +186,7 @@
 		$titre = $db->quote($titre);
 		$auteur = $db->quote($auteur);
 		$description = $db->quote($description);
-		$insert = $db->exec("INSERT INTO image VALUES(NULL,$titre,NOW(),$auteur,$description, $url, $id_user)");
+		$insert = $db->exec("INSERT INTO image VALUES(NULL,$titre,NOW(),$description, $url, $id_user)");
 		return $insert;
 	}
 	function updateImage($id, $titre, $auteur, $description){

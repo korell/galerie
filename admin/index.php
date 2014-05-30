@@ -21,7 +21,7 @@
 		$order = htmlspecialchars($_GET['orderby']);
 	}
 	else{
-		$order = 'date_ajout';
+		$order = 'image.date_ajout';
 	}
 	if(isset($_POST['search'])){
 		$search = htmlspecialchars($_POST['search']);
@@ -50,10 +50,10 @@
 	}
 	$table .= '<tr>';
 	$table .= '<th></th>';
-	$table .= '<th>Titre <a href="'.majParamGet($query, ['orderby'=>'titre', 'dir'=>$tri]).'"><i class="fa fa-sort"></i></a></th>';
-	$table .= '<th>Description <a href="'.majParamGet($query, ['orderby'=>'description', 'dir'=>$tri]).'"><i class="fa fa-sort"></i></a></th>';
-	$table .= '<th>Auteur <a href="'.majParamGet($query, ['orderby'=>'auteur', 'dir'=>$tri]).'"><i class="fa fa-sort"></i></a></th>';
-	$table .= '<th>Date d\'ajout <a href="'.majParamGet($query, ['orderby'=>'date_ajout', 'dir'=>$tri]).'"><i class="fa fa-sort"></i></a></th>';
+	$table .= '<th>Titre <a href="'.majParamGet($query, ['orderby'=>'image.titre', 'dir'=>$tri]).'"><i class="fa fa-sort"></i></a></th>';
+	$table .= '<th>Description <a href="'.majParamGet($query, ['orderby'=>'image.description', 'dir'=>$tri]).'"><i class="fa fa-sort"></i></a></th>';
+	$table .= '<th>Auteur <a href="'.majParamGet($query, ['orderby'=>'users.prenom', 'dir'=>$tri]).'"><i class="fa fa-sort"></i></a></th>';
+	$table .= '<th>Date d\'ajout <a href="'.majParamGet($query, ['orderby'=>'image.date_ajout', 'dir'=>$tri]).'"><i class="fa fa-sort"></i></a></th>';
 	$table .= '<th></th>';
 	foreach ($images as $image){
 		$date = new DateTime($image['date_ajout']);
@@ -72,7 +72,8 @@
 	$table .= '</table></div>';
 ?>
 <h1>La liste de vos photos</h1> 
-<?php	echo $table;
+<?php
+	echo $table;
 	}//fin du if de $_SESSION
 	else{
 		header('Location: login.php');
