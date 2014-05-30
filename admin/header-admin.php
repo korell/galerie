@@ -1,4 +1,10 @@
-<?php 
+<?php
+if(isInit()){
+	$phase_init = '<div class="init">Attention ! Vous êtes en mode d\'initialisation. Pour en sortir, veuillez modifier la valeur dans le fichier \'config.php\'.</div>';
+}
+else{
+	$phase_init = '';
+}
 if(isset($_GET['s']) && $_GET['s'] == 'off'){
 	$_SESSION = array();
 	session_destroy();
@@ -36,6 +42,7 @@ elseif(isset($_SESSION['email'])){
 </head>
 <body>
 	<header>
+		<?=$phase_init?>
 		<nav>
 			<form method="post">
 				<ul>

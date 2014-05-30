@@ -7,4 +7,5 @@ Utilisation de la galerie
 4. Indiquer le dossier des images dans la table 'infos_globales'
 5. Renommer le fichier ```config-exemple.php``` en ```config.php```
 6. Modifier vos valeurs dans le fichier ```config.php```
+	6.1. Une fois la configuration et l'enregistrement du 1er utilisateur effectués, passer la valeur de $init à 'false'
 7. Youpi, ça fonctionne !

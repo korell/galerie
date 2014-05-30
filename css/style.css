@@ -21,6 +21,14 @@ h1{
     z-index: 10;
     position: relative;
 }
+.init{
+    color: white;
+    text-align: center;
+    background-color: red;
+    font-size: 2rem;
+    line-height: 3rem;
+    border-bottom: white 1px solid;
+}
 .home .wrapper, .admin .wrapper{
     max-width: 850px;
     overflow: hidden;
@@ -312,7 +320,7 @@ h1{
     margin: 5px 0;
 }
 .admin .wrapper{
-    margin: 6rem auto;
+    margin: 8rem auto;
 }
 .admin .wrapper > p{
     font-size: 1.5rem;
@@ -333,7 +341,6 @@ h1{
 }
 .admin header{
     top: 0;
-    margin-bottom: 30px;
 }
 .admin footer{
     bottom: 0;

@@ -1,4 +1,8 @@
 <?php
+	function isInit(){
+		global $config;
+		return $config['init'];
+	}
 	function isConnected(){
 		if(isset($_SESSION['admin']) && $_SESSION['admin'] == true){
 			$connected = true;
@@ -391,6 +395,7 @@
 	}
 	function createAccount($email, $psswd, $prenom, $status = 'membre', $gravatar = 'defaut.jpg'){
 		global $db;
+		(isInit() ? $status = 'admin' : $admin = 'membre');
 		$email = $db->quote($email);
 		$psswd = $db->quote(password_hash($psswd, PASSWORD_DEFAULT, array('cost' => 13)));
 		$prenom = $db->quote($prenom);
