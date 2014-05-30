@@ -50,7 +50,7 @@
 
 		//on insère en base
 		if($errors == 0){
-			updateAccount($id_user, $email, $psswd, $prenom);
+			updateAccount($id_user, $email, $psswd, $prenom, $gravatar);
 			header('Location: index.php');
 		}	
 	}			

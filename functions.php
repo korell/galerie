@@ -395,7 +395,6 @@
 		$psswd = $db->quote(password_hash($psswd, PASSWORD_DEFAULT, array('cost' => 13)));
 		$prenom = $db->quote($prenom);
 		$status = $db->quote($status);
-		$gravatar = '../images/gravatars/'.$gravatar;
 		$gravatar = $db->quote($gravatar);
 		$create = $db->exec("INSERT INTO users VALUES (NULL, $email, $psswd, $prenom, $status, $gravatar)");
 		return $create;
@@ -405,6 +404,7 @@
 		$id = (int)$id;
 		$email = $db->quote($email);
 		$prenom = $db->quote($prenom);
+		$gravatar = $db->quote($gravatar);
 		if($psswd == ''){
 			$update = $db->exec("UPDATE users SET gravatar = $gravatar, email = $email, prenom = $prenom WHERE id = $id");
 		}
