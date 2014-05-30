@@ -1,5 +1,6 @@
 <?php
 	require_once('init.php');
+
 //////gestion de la pagination
 	//on vérifie l'existence de pageid
 	if(isset($_GET['pageid']) && $_GET['pageid']!=null){
@@ -25,7 +26,7 @@
 	}else{
 		$titre_page = 'Pas d\'image << ';
 	}
-	include('header.php');
+	require_once('header.php');
 	$dir = galerieImgDirectory();
 
 //////gestion de l'affichage de l'image
@@ -40,7 +41,7 @@
 ?>
 		<h1><?= $infos_image['titre']?></h1>
 		<nav>
-			<a href="index.php?pageid=<?= $page_id?>">Retour à la galerie</a>
+			<a href="index.php?<?php echo $_SERVER['QUERY_STRING'];?>">Retour à la galerie</a>
 		</nav>
 		<div class="image">
 			<figure>
@@ -58,7 +59,7 @@
 		//si l'image N'est PAS présente dans la BDD
 		else{?>
 			<nav>
-				<a href="index.php?pageid=<?= $page_id?>">Retour à la galerie</a>
+				<a href="index.php?<?php echo $_SERVER['QUERY_STRING'];?>">Retour à la galerie</a>
 			</nav>
 			<div class="erreur">
 				Pas d'image...!
@@ -69,7 +70,7 @@
 	//si le paramètre 'imgid' N'existe PAS ou N'est PAS OK
 	else{?>
 		<nav>
-			<a href="index.php?pageid=<?= $page_id?>">Retour à la galerie</a>
+			<a href="index.php?<?php echo $_SERVER['QUERY_STRING'];?>">Retour à la galerie</a>
 		</nav>
 		<div class="erreur">
 			Pas d'image...!

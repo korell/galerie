@@ -116,10 +116,25 @@
 		
 		return $list_img;
 	}
-	function getListImgByUserId($page_id = '', $orderby = 'image.date_ajout', $dir = 'DESC', $search = '', $id_user){
+	/*
+	*
+	*
+	*renvoie la liste des images de chaque utilisateurs
+	*
+	*les arguments sont passés par un tableau associatif
+	*
+	*/
+	function getListImgByUserId(array $args){
 		global $db;
 		global $img_par_page;
 
+		(isset($args['page_id']) ? $page_id = $args['page_id'] : $page_id = '');
+		(isset($args['orderby']) ? $orderby = $args['orderby'] : $orderby = 'image.date_ajout');
+		(isset($args['dir']) ? $dir = $args['dir'] : $dir = 'DESC');
+		(isset($args['search']) ? $search = $args['search'] : $search = '');
+		//argument obligatoire
+		(isset($args['id_user']) ? $id_user = $args['id_user'] : $id_user = '');
+	
 		//sécurisation de la variable $search
 		$search = '%'.$search.'%';
 		$search = $db->quote($search);
@@ -179,7 +194,7 @@
 	}
 	function getInfosImg($imgid){
 		global $db;
-		$infos = $db->query('SELECT image.id, image.titre, image.nom_fichier, image.date_ajout, image.description, users.prenom 
+		$infos = $db->query('SELECT image.id id_img, image.titre, image.nom_fichier, image.date_ajout, image.description, users.prenom , users.id id_user
 			FROM image
 			INNER JOIN users
 			ON image.id_user = users.id

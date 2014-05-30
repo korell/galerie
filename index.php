@@ -3,10 +3,9 @@
 	$titre_page = '';
 	require_once('header.php');
 	$dir = galerieImgDirectory();
+	$retour = '';
+	$query = $_SERVER['QUERY_STRING'];
 ?>
-<h1><?= galerieTitre() ?></h1>
-<div class='wrapper'>
-	<div class="galerie">
 <?php
 
 	$images_par_page = $img_par_page;
@@ -26,23 +25,52 @@
 	else{
 		$page_id = 1;
 	}
-	$list_img = getListImgFront($page_id);
-	
+	if(isset($_GET['id_user']) && !empty($_GET['id_user'])){
+		$id_user = $_GET['id_user'];
+		$prenom = getUserInfosById($id_user)['prenom'];
+		$users_list = getUsersList();
+		$users_list_id =[];
+		foreach($users_list as $user){
+			$users_list_id [] = $user['id'];
+		}
+		if(in_array($id_user, $users_list_id)){
+			$retour = '<a href="'.majParamGet($query, ['id_user' => '']).'"><i class="fa fa-angle-double-left"></i> Retour à toutes les photos</a>';
+			$message = 'Les photos de '.$prenom;
+			$args =['id_user' => $id_user];
+			$list_img = getListImgByUserId($args);
+		}
+		else{
+			$message = 'Pas d\'utilisateur connu';
+			$list_img = getListImgFront($page_id);
+		}
+	}
+	else{
+		$message = '';
+		$list_img = getListImgFront($page_id);
+	}
+?>
+<h1><?= galerieTitre() ?></h1>
+<div class='wrapper'>
+	<h2><?=$message?></h2>
+	<div class="galerie">
+<?php		
 	foreach ($list_img as $ligne){
 
 		//on affiche les miniatures
 		$imgurl = 'mini-'.$ligne['nom_fichier'];
 		$imgid = $ligne['id'];
 		$auteur = getInfosImg($imgid)['prenom'];
+		$id_user = getInfosImg($imgid)['id_user'];
 
 		$img_div = '<div class="image">';
-		$img_div .= '<span class="auteur"><a href="#">'.$auteur.'</a></span>';
-		$img_div .= '<a href="single.php?imgid='.$imgid.'&pageid='.$page_id.'">';
+		$img_div .= '<span class="auteur"><a href="index.php'.majParamGet($query, ['id_user' => $id_user]).'">'.$auteur.'</a></span>';
+		$img_div .= '<a href="single.php'.majParamGet($query, ['imgid' => $imgid]).'">';
 		$img_div .= '<img src="'.$dir.'/'.$imgurl.'" alt="'.$ligne['titre'].'"/>';
 		$img_div .= '</a></div>';
 		echo $img_div;
 	}
 ?>
+<div class="retour"><?=$retour?></div>
 </div>
 
 <!--Gestion de la navigation entre les pages-->

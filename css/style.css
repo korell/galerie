@@ -34,10 +34,26 @@ h1{
     overflow: hidden;
     margin: 0 auto;
 }
+.home h2{
+    margin: 3rem 0;
+    font-size: 2rem;
+    text-align: left;
+}
 .home .galerie{
+    position: relative;
     min-height: 400px;
     overflow: hidden;
 }
+.home .retour{
+    position: absolute;
+    bottom: 20px;
+    text-align: left;
+}
+    .home .retour a{
+        color: inherit;
+        font-size: 2rem;
+        text-decoration: none;
+    }
 .home nav{
     clear: both;
     border-top: solid grey 1px;

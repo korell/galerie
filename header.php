@@ -3,6 +3,7 @@
 <head>
     <title><?= $titre_page?><?= galerieTitre()?></title>
     <link rel="stylesheet" href="css/reset.css"/>
+    <link rel="stylesheet" type="text/css" href="css/font-awesome-4.1.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/style.css"/>
     <meta charset="utf-8" />
 </head>

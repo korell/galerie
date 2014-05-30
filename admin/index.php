@@ -30,7 +30,7 @@
 	else{
 		$search = '';
 	}
-	$images = getListImgByUserId('', $order, $trisql, $search, $_SESSION['id']);
+	$images = getListImgByUserId(['orderby' => $order, 'tri' => $trisql, 'search' => $search, 'id_user' => $_SESSION['id']]);
 	//on récupère les paramètres GET
 	$query = $_SERVER['QUERY_STRING'];
 
