@@ -10,6 +10,7 @@ if(isset($_SESSION['prenom'])){
 else{
 	$auteur = '';
 }
+$id_user = $_SESSION['id'];
 $url = $titre = $description = $errors_list = '';
 $error_msg_table = [];
 $errors = 0;
