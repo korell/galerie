@@ -236,6 +236,7 @@
 		$titre = $titre->fetch()['titre'];
 		return $titre;
 	}
+
 	//Vérifie si le paramètre 'id' de l'image passé en URL existe bien dans la BDD
 	//retourne '1' si l'image est présente dans la BDD
 	function isImgExist($imgid){

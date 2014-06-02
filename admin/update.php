@@ -13,13 +13,18 @@ $dir = galerieImgDirectory();
 if(isset($_GET['imgid'])){
 	$imgid = htmlspecialchars($_GET['imgid']);
 	$infosimg = getInfosImg($imgid);
-	$titre = $infosimg['titre'];
-	$description = $infosimg['description'];
-	$url_fichier = '../'.$dir.'/big-'.$infosimg['nom_fichier'];
-	$auteur = $infosimg['prenom'];
+	if($id_user == $infosimg['id_user']){
+		$titre = $infosimg['titre'];
+		$description = $infosimg['description'];
+		$url_fichier = '../'.$dir.'/big-'.$infosimg['nom_fichier'];
+		$auteur = $infosimg['prenom'];
+	}
+	else{
+		header('Location: index.php?modif=forbidden');
+	}
 }
 else{
-	$error_msg_table[] = 'Pas de photo à modifier';
+	header('Location: index.php?modif=noimage');
 }
 
 $errors = 0;
@@ -47,38 +52,14 @@ if(!empty($_POST)){
 	}
 	if($errors==0){
 		updateImage($imgid, $titre, $id_user, $description);
-		$ok='';
+		$args = 'Location: index.php'.majParamGet($_SERVER['QUERY_STRING'], ['modif' => 'ok'], false);
+		echo $args;
+		header($args);
 	}
 }
 ?>
-<?php
-	$list_img_id = [];
-	$list_img = getListImg();
-	foreach ($list_img as $img_id) {
-		$list_img_id[] = $img_id['id'];
-	}
-	$list_img_user = getIdImgUser($_SESSION['id']);
-?>
-<?php if(isset($ok)){
-	$query = $_SERVER['QUERY_STRING'];
-	$params = ['imgid'=>$imgid];
-	?>
-	<h1>Image bien modifiée</h1>
-	<img src="<?= $url_fichier?>" alt="<?= $titre?>">
-	<p><?= $titre?></p>
-	<p><?= $description?></p>
-	<p><?= $auteur?></p>
-	<p><a href="<?=majParamGet($query, $params)?>">Modifier l'image</a><p>
-	<p><a href="insert.php">Envoyer une autre image</a><p>
-	<p><a href="../">Voir la galerie</a><p>
-	<?php }
-	else{
-?>
 <form method="post" class="image">
 	<div class="inputs">
-<?php
-	if(in_array($imgid, $list_img_user)){
-?>		
 		<h1>Modifier votre photo</h1>
 		<p>
 			<img src="<?= $url_fichier?>" alt="<?= $titre?>">
@@ -94,17 +75,6 @@ if(!empty($_POST)){
 		<p>
 			<button type="submit" name="submit" value="Ajouter"><i class="fa fa-check"></i> Modifier</button>
 		</p>
-<?php }
-	elseif(in_array($imgid, $list_img_id)){
-		echo '<h1>Vous n\'avez pas le droit de modifier cette image (petit malin...)</h1>
-			<p>
-				<img src="'.$url_fichier.'" alt="'.$titre.'">
-			</p>';
-	}
-	else{
-		echo '<h1>Cette image n\'existe pas...</h1>';
-	}
-?>			
 	</div>
 	<?php 
 	if($errors > 0){
@@ -121,9 +91,8 @@ if(!empty($_POST)){
 		echo '</ul></div>';
 	}?>
 </form>
-<?php } ?>
-<?php include('footer-admin.php') ?>
 <?php
+require_once('footer-admin.php');
 }//fin du if de $_SESSION
 else{
 	header('Location: login.php');
