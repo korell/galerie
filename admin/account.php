@@ -5,6 +5,7 @@
 	//$user_infos est déclaré dans le header-admin.php
 	$email = $user_infos['email'];
 	$prenom = $user_infos['prenom'];
+	$gravatar = $user_infos['gravatar'];
 	$psswd = '';
 	$errors = 0;
 	$error_msg_table = [];

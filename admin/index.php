@@ -28,7 +28,7 @@ $query = $_SERVER['QUERY_STRING'];
 			$order = htmlspecialchars($_GET['orderby']);
 		}
 		else{
-			$order = 'image.date_ajout';
+			$order = 'date';
 		}
 
 		//affichage des termes de recherches sur la page
@@ -93,10 +93,10 @@ $query = $_SERVER['QUERY_STRING'];
 
 		$table .= '<tr>';
 		$table .= '<th></th>';
-		$table .= '<th>Titre <a href="'.majParamGet($query, ['orderby'=>'image.titre', 'dir'=>$tri]).'"><i class="fa fa-sort"></i></a></th>';
-		$table .= '<th>Description <a href="'.majParamGet($query, ['orderby'=>'image.description', 'dir'=>$tri]).'"><i class="fa fa-sort"></i></a></th>';
-		$table .= '<th>Auteur <a href="'.majParamGet($query, ['orderby'=>'users.prenom', 'dir'=>$tri]).'"><i class="fa fa-sort"></i></a></th>';
-		$table .= '<th>Date d\'ajout <a href="'.majParamGet($query, ['orderby'=>'image.date_ajout', 'dir'=>$tri]).'"><i class="fa fa-sort"></i></a></th>';
+		$table .= '<th>Titre <a href="'.majParamGet($query, ['orderby'=>'titre', 'dir'=>$tri]).'"><i class="fa fa-sort"></i></a></th>';
+		$table .= '<th>Description <a href="'.majParamGet($query, ['orderby'=>'description', 'dir'=>$tri]).'"><i class="fa fa-sort"></i></a></th>';
+		$table .= '<th>Auteur <a href="'.majParamGet($query, ['orderby'=>'auteur', 'dir'=>$tri]).'"><i class="fa fa-sort"></i></a></th>';
+		$table .= '<th>Date d\'ajout <a href="'.majParamGet($query, ['orderby'=>'date', 'dir'=>$tri]).'"><i class="fa fa-sort"></i></a></th>';
 		$table .= '<th></th>';
 		$nb_img = 0;
 
@@ -107,7 +107,7 @@ $query = $_SERVER['QUERY_STRING'];
 			$imgid = $image['id'];
 			$nb_img++;
 			//formatage de la date
-			$date = new DateTime($image['date_ajout']);
+			$date = new DateTime($image['date']);
 			$date = $date->format('d/m/Y H:i:s');
 
 			//on complète la table à chaque passage
@@ -115,7 +115,7 @@ $query = $_SERVER['QUERY_STRING'];
 			$table .= '<td><img class="miniature" src="../'.galerieImgDirectory().'/mini-'.$image['nom_fichier'].'" alt="image" ></td>';
 			$table .= '<td>'.$image['titre'].'</td>';
 			$table .= '<td>'.$image['description'].'</td>';
-			$table .= '<td>'.$image['prenom'].'</td>';
+			$table .= '<td>'.$image['auteur'].'</td>';
 			$table .= '<td>'.$date.'</td>';
 			
 			//bouton de suppression et modification		

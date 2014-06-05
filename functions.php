@@ -129,8 +129,8 @@
 		global $img_par_page;
 
 		(isset($args['page_id']) ? $page_id = $args['page_id'] : $page_id = '');
-		(isset($args['orderby']) ? $orderby = $args['orderby'] : $orderby = 'image.date_ajout');
-		(isset($args['dir']) ? $dir = $args['dir'] : $dir = 'DESC');
+		(isset($args['orderby']) ? $orderby = $args['orderby'] : $orderby = 'date');
+		(isset($args['tri']) ? $dir = $args['tri'] : $dir = 'DESC');
 		(isset($args['search']) ? $search = $args['search'] : $search = '');
 		//argument obligatoire
 		(isset($args['id_user']) ? $id_user = $args['id_user'] : $id_user = '');
@@ -140,7 +140,7 @@
 		$search = $db->quote($search);
 
 		//sécurisation des variables $orderby et $dir
-		$champs_table = ['image.titre', 'users.prenom', 'image.date_ajout', 'image.description'];
+		$champs_table = ['titre', 'auteur', 'date', 'description'];
 		(in_array($orderby, $champs_table)) ? $orderby = $orderby : $orderby='';
 		($dir == 'ASC' || $dir == 'DESC') ? $dir = $dir : $dir ='';
 		
@@ -154,7 +154,7 @@
 		}
 		$id_user = (int)$id_user;
 		//on génère la liste d'images
-		$list_img = $db->query("SELECT image.id, image.titre, users.prenom, image.nom_fichier, image.date_ajout, image.description
+		$list_img = $db->query("SELECT image.id, image.titre AS titre, users.prenom AS auteur, image.nom_fichier, image.date_ajout AS date, image.description AS description
 			FROM image
 			INNER JOIN users
 			ON image.id_user = users.id
@@ -420,7 +420,7 @@
 		$create = $db->exec("INSERT INTO users VALUES (NULL, $email, $psswd, $prenom, $status, $gravatar)");
 		return $create;
 	}
-	function updateAccount($id, $email, $psswd, $prenom, $gravatar){
+	function updateAccount($id, $email, $psswd, $prenom, $gravatar = 'defaut.jpg'){
 		global $db;
 		$id = (int)$id;
 		$email = $db->quote($email);
